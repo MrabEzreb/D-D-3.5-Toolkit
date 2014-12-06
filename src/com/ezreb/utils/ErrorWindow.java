@@ -3,20 +3,13 @@ package com.ezreb.utils;
 import java.awt.Button;
 import java.awt.Choice;
 import java.awt.Component;
-import java.awt.Container;
-import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.DisplayMode;
 import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
-
-import sun.awt.DesktopBrowse;
-import sun.java2d.ScreenUpdateManager;
-
+@Deprecated
 public class ErrorWindow {
 
 	public ErrorWindow(String reason) {
@@ -57,34 +50,34 @@ public class ErrorWindow {
 		System.out.println(h);
 		retVal.setSize(200, 100);
 		retVal.setLocation(w, h);
-		Label l = new Label("Error: "+this.reason, Label.CENTER);
-		l.setBounds(3, 10, 94, 10);
+		Label l = new Label("Error: "+this.reason);
+		l.setBounds(50, 32, 100, 15);
+		retVal.setVisible(true);
 		retVal.add(l);
 		Choice c = new Choice();
 		for (String string : options) {
 			c.add(string);
 		}
-		c.setBounds(3, 20, 94, 10);
+		c.setBounds(60, 42, 80, 10);
 		retVal.add(c);
 		Button b = new Button("Done");
-		b.setBounds(28, 35, 54, 10);
+		//b.setBounds(13, 75, 174, 10);
+		b.setLocation(13, 75);
+		b.setPreferredSize(new Dimension(80, 10));
 		final ErrorWindow e3 = this;
 		b.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				e3.hasAnswer = true;
-				
-				
 			}
 		});
+		System.out.println(b.getBounds().getWidth());
+		System.out.println(b.getBounds().getHeight());
 		retVal.add(b);
 		Component[] comps = retVal.getComponents();
 		for (int i = 0; i < comps.length; i++) {
 			System.out.println(comps[i].getName());
-			
 		}
-		retVal.setVisible(true);
 		String chosen = null;
 		while(hasAnswer==false) {
 			chosen = c.getSelectedItem();
