@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FileLoader {
@@ -23,7 +24,25 @@ public class FileLoader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		JSONObject pathToFile = files.getJSONObject("Files");
+		JSONObject pathToFile = null;
+		try {
+			pathToFile = files.getJSONObject("Files");
+		} catch (JSONException e) {
+			
+		}
+		boolean isNextLevel;
+		JSONObject pathToFile2 = null;
+		if(pathToFile.has(name)) {
+			try {
+				pathToFile2 = pathToFile.getJSONObject(name);
+				isNextLevel = true;
+			} catch(JSONException e) {
+				isNextLevel = false;
+			}
+			if(isNextLevel==true) {
+				pathToFile = pathToFile2;
+			}
+		}
 		return pathToFile;
 	}
 
