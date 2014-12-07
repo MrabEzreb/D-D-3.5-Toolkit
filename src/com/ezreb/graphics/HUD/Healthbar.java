@@ -69,7 +69,7 @@ public class Healthbar extends Component {
 		this.addMouseListener(l);
 		this.maxHealth = maxHealth;
 	}
-	private Graphics g;
+	private final Graphics g;
 	private Rectangle health;
 	private int maxHealth;
 	private int curHealth;
