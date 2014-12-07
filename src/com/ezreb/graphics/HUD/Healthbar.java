@@ -21,7 +21,7 @@ public class Healthbar extends Component {
 	public Healthbar(int maxHealth, Graphics g) {
 		this(maxHealth, 0, g);
 	}
-	public Healthbar(int maxHealth, int curHealth, Graphics g) {
+	public Healthbar(int maxHealth, int curHealth, final Graphics g) {
 		this.setPreferredSize(new Dimension(200, 20));
 		this.setSize(new Dimension(200, 20));
 		this.setVisible(true);
@@ -69,7 +69,7 @@ public class Healthbar extends Component {
 		this.addMouseListener(l);
 		this.maxHealth = maxHealth;
 	}
-	private final Graphics g;
+	private Graphics g;
 	private Rectangle health;
 	private int maxHealth;
 	private int curHealth;
