@@ -8,29 +8,27 @@ public class Stat {
 		this.name = stat.getString("Name");
 		this.min = stat.getLong("Min");
 		this.max = stat.getLong("Max");
+		this.fullStuff.put("Name", this.name);
+		this.fullStuff.put("Min", this.min);
+		this.fullStuff.put("Max", this.max);
 	}
 	public Stat(String name, float min, float max) {
 		this.name = name;
 		this.min = min;
 		this.max = max;
+		this.fullStuff.put("Name", this.name);
+		this.fullStuff.put("Min", this.min);
+		this.fullStuff.put("Max", this.max);
 	}
 	float min;
 	float max;
 	String name;
+	public JSONObject fullStuff = new JSONObject();
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		JSONObject retVal = new JSONObject();
-		retVal.put("Name", this.name);
-		retVal.put("Min", this.min);
-		retVal.put("Max", this.max);
-		return retVal.toString();
+		return this.fullStuff.toString();
 	}
 	public JSONObject toJSON() {
-		JSONObject retVal = new JSONObject();
-		retVal.put("Name", this.name);
-		retVal.put("Min", this.min);
-		retVal.put("Max", this.max);
-		return retVal;
+		return this.fullStuff;
 	}
 }

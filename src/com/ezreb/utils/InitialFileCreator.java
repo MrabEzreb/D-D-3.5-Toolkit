@@ -58,6 +58,10 @@ public class InitialFileCreator {
 		}
 		saveRace(new Race(new JSONObject("{Name:Dwarf,Stat Changes:{Constitution:2,Charisma:-2},Physical Description:{Tall Height:4.5,Short Height:4,Heavy Weight:250,Light Weight:125,Skin Color:Deep Tan or Light Brown,Hair Color:Black Gray or Brown,Child Age:10,Teen Age:29,Adult Age:40,Elder Age:300,Death Age:400}}")));
 		saveRace(new Race(new JSONObject("{Name:Elf,Stat Changes:{Constitution:-2,Dexterity:2},Physical Description:{Tall Height:5.5,Short Height:4.5,Heavy Weight:135,Light Weight:95,Skin Color:Pale,Hair Color:Dark,Child Age:25,Teen Age:75,Adult Age:110,Elder Age:500,Death Age:700}}")));
+		saveRace(new Race(new JSONObject()));
+		saveRace(new Race(new JSONObject()));
+		saveRace(new Race(new JSONObject()));
+		saveRace(new Race(new JSONObject()));
 		
 	}
 	public static void saveRace(Race r) {
@@ -73,6 +77,20 @@ public class InitialFileCreator {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	public staticvoid saveStat(Stat s) {
+		File thisJar = new File("");
+		String path2 = thisJar.getAbsolutePath()+"DnD Toolkit";
+		File newStat = new File(path2+"/Stats/"+s.name+".json");
+		try {
+			newStat.createNewFile();
+			BufferedWriter writer = Files.newBufferedWriter(newStat.toPath(), Charset.defaultCharset());
+			writer.write(s.fullStuff.toString());
+			writer.flush();
+			writer.close();
+		} catch(IOException e) {
+			e.printSackTrace();
 		}
 	}
 }
