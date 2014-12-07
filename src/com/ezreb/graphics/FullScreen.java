@@ -1,6 +1,7 @@
 package com.ezreb.graphics;
 
 import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 
 public class FullScreen extends Frame {

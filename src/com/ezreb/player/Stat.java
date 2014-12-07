@@ -22,7 +22,7 @@ public class Stat {
 	}
 	float min;
 	float max;
-	String name;
+	public String name;
 	public JSONObject fullStuff = new JSONObject();
 	@Override
 	public String toString() {

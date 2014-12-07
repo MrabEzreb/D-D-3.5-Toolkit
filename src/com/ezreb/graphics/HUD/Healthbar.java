@@ -13,8 +13,7 @@ public class Healthbar extends Component {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1586260475434936946L;
-
+	private static final long serialVersionUID = -1586260475434936946L;	
 	public Healthbar(Graphics g) {
 		this(100, 0, g);
 	}

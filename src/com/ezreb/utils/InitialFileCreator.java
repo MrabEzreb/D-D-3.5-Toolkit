@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import org.json.JSONObject;
 
 import com.ezreb.entity.Race;
+import com.ezreb.player.Stat;
 
 public class InitialFileCreator {
 
@@ -79,7 +80,7 @@ public class InitialFileCreator {
 			e.printStackTrace();
 		}
 	}
-	public staticvoid saveStat(Stat s) {
+	public static void saveStat(Stat s) {
 		File thisJar = new File("");
 		String path2 = thisJar.getAbsolutePath()+"DnD Toolkit";
 		File newStat = new File(path2+"/Stats/"+s.name+".json");
@@ -90,7 +91,7 @@ public class InitialFileCreator {
 			writer.flush();
 			writer.close();
 		} catch(IOException e) {
-			e.printSackTrace();
+			e.printStackTrace();
 		}
 	}
 }
