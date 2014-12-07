@@ -7,7 +7,10 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 		FullScreen f = new FullScreen();
-		Healthbar h = new Healthbar(100, 100);
+		f.toggleVisible();
+		Healthbar h = new Healthbar(100, 100, f.getGraphics());
+		f.toggleVisible();
+		Thread.sleep(1000);
 		h.setLocation(50, 50);
 		f.add(h);
 		f.toggleVisible();
