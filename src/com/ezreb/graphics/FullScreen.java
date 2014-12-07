@@ -11,7 +11,15 @@ public class FullScreen extends Frame {
 	private static final long serialVersionUID = 1740628702648147613L;
 
 	public FullScreen() {
-		this.setUndecorated(true);;
+		this.setUndecorated(true);
+		this.setVisible(true);
+		this.g = this.getGraphics();
+		this.setVisible(false);
+	}
+	private Graphics g;
+	@Override
+	public Graphics getGraphics() {
+		return this.g;
 	}
 	public FullScreen toggleVisible() {
 		if(this.isVisible()==true) {

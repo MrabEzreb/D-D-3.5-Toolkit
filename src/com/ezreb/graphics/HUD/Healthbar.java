@@ -56,7 +56,7 @@ public class Healthbar extends Component {
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				getGraphics().drawString("Health", 0, 0);
+				g.drawString("Health", 0, 0);
 				
 			}
 			
