@@ -7,15 +7,17 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 		FullScreen f = new FullScreen();
-		Healthbar h = new Healthbar(100, 100, f.getGraphics());
+		Healthbar h = new Healthbar(100, 100);
 		Thread.sleep(1000);
-		h.setLocation(50, 50);
-		f.add(h);
 		f.toggleVisible();
+		f.add(h);
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 101; j++) {
 				h.setHealth(j);
-				Thread.sleep(1000);
+				f.paintComponents(f.getGraphics());
+				//f.paint(f.getGraphics());
+				System.out.println(f.getComponents()[0]);
+				Thread.sleep(500);
 			}
 		}
 	}

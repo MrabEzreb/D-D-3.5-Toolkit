@@ -1,8 +1,10 @@
 package com.ezreb.graphics;
 
+import java.awt.Component;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
+import java.awt.LayoutManager;
 
 public class FullScreen extends Frame {
 
@@ -13,13 +15,19 @@ public class FullScreen extends Frame {
 
 	public FullScreen() {
 		this.setUndecorated(true);
-		this.setVisible(true);
-		this.g = this.getGraphics();
-		this.setVisible(false);
+		this.setSize(640, 480);
 	}
 	private Graphics g;
 	@Override
 	public Graphics getGraphics() {
+		if(this.isVisible()==false) {
+			this.setVisible(true);
+			Graphics g = super.getGraphics();
+			this.setVisible(false);
+			this.g = g;
+		} else {
+			this.g = super.getGraphics();
+		}
 		return this.g;
 	}
 	public FullScreen toggleVisible() {
