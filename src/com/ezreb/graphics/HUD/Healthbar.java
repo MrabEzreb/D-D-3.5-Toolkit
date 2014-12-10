@@ -89,7 +89,7 @@ public class Healthbar extends Container {
 						//Healthbar.this.setPreferredSize(Healthbar.this.getParent().getSize());
 						Healthbar.this.setSize(201, 21);
 						Healthbar.this.g.setColor(Color.BLACK);
-						Healthbar.this.g.fillRect(0, 0, 201, 21);
+						Healthbar.this.g.fillRect(Healthbar.this.location.x, Healthbar.this.location.y, 201, 21);
 					} else {
 						//Healthbar.this.remove(Healthbar.this.mouseMessage2);
 						System.out.println("lost parent");

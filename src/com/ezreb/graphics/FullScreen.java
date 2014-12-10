@@ -5,6 +5,8 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.LayoutManager;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class FullScreen extends Frame {
 
@@ -16,6 +18,54 @@ public class FullScreen extends Frame {
 	public FullScreen() {
 		this.setUndecorated(true);
 		this.setSize(640, 480);
+		this.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent arg0) {
+				
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent arg0) {
+				Component[] c = FullScreen.this.getComponents();
+				for (Component component : c) {
+					component.validate();
+					component.firePropertyChange("Open", (long) 2, (long) 2);
+				}
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	private Graphics g;
 	@Override
