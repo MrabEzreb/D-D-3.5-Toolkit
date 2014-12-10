@@ -36,8 +36,7 @@ public class FullScreen extends Frame {
 			public void windowDeiconified(WindowEvent arg0) {
 				Component[] c = FullScreen.this.getComponents();
 				for (Component component : c) {
-					component.validate();
-					component.firePropertyChange("Open", (long) 2, (long) 2);
+					component.setVisible(true);
 				}
 				
 			}

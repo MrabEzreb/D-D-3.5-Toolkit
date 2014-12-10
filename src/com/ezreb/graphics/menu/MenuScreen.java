@@ -29,7 +29,7 @@ public class MenuScreen extends Container {
 					if((long) evt.getNewValue()==2 && evt.getPropertyName()=="Open" && MenuScreen.this.isShowing==true) {
 						Thread.sleep(100);
 						MenuScreen.this.open();
-						//MenuScreen.this.firePropertyChange("Open", (long) 2, (long) 1);
+						MenuScreen.this.firePropertyChange("Open", (long) 2, (long) 1);
 						System.out.println("menuscren has been opened");
 					}
 				} catch(ClassCastException e) {
@@ -65,7 +65,7 @@ public class MenuScreen extends Container {
 		if(this.getParent()!=null && this.getParent().isVisible()==true) {
 			this.setSize(this.size.getSize());
 			this.setLocation(this.location);
-			this.setVisible(true);
+			super.setVisible(true);
 			this.isShowing = true;
 			this.getGraphics().drawRect(5, 5, 5, 5);
 			Component[] c = this.getComponents();
@@ -75,6 +75,16 @@ public class MenuScreen extends Container {
 				component.firePropertyChange("Open", zero, one);
 				//System.out.println(component);
 			}
+		}
+	}
+	@Override
+	public void setVisible(boolean b) {
+		// TODO Auto-generated method stub
+		super.setVisible(b);
+		if(b==true) {
+			this.open();
+		} else {
+			this.close();
 		}
 	}
 	public void close() {
