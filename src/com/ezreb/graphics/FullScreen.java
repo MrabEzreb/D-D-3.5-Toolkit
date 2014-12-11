@@ -37,6 +37,13 @@ public class FullScreen extends Frame {
 				Component[] c = FullScreen.this.getComponents();
 				for (Component component : c) {
 					component.setVisible(true);
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//System.out.println(component.isVisible());
 				}
 				
 			}
