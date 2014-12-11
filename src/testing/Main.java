@@ -10,7 +10,7 @@ public class Main {
 		FullScreen f = new FullScreen();
 		//Healthbar h = new Healthbar(100, 100);
 		Thread.sleep(1000);
-		f.setVisible(true);
+		f.toggleVisible();
 		MainMenu.run(f);
 //		for (int i = 0; i < 5; i++) {
 //			for (int j = 0; j < 101; j++) {
