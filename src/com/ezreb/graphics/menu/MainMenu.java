@@ -21,6 +21,10 @@ import com.ezreb.graphics.FullScreen;
  */
 public class MainMenu {
 
+	public MainMenu() {
+		
+	}
+	public static MainMenu m = new MainMenu();
 	public static Thread t = Thread.currentThread();
 //	public static MenuScreen main = new MenuScreen(new Rectangle(201, 111), new Point(100, 100));
 //	public static MenuScreen testBack = new MenuScreen(new Rectangle(201, 101), new Point(300, 100));
@@ -36,7 +40,7 @@ public class MainMenu {
 //		main.open();
 //	}
 	public static MenuScreen test = new MenuScreen(new Rectangle(201, 111), new Point(300, 100));
-	public static MenuScreen test2 = new MenuScreen(new Rectangle(201, 111), new Point(100, 100));
+	public static MenuScreen test2 = new MenuScreen(new Rectangle(201, 111), new Point(0, 0));
 	private static File fim2 = new File("");
 	private static File fim = new File(fim2.getAbsolutePath(), "/src/com/ezreb/graphics/images/health_border.png");
 	private static File fim3 = new File(fim2.getAbsolutePath(), "/src/com/ezreb/graphics/images/health_bar.png");
@@ -57,6 +61,7 @@ public class MainMenu {
 			test2.add(firstMenu);
 			f.add(test);
 			f.add(test2);
+			test2.isFirst = true;
 			test2.open();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
