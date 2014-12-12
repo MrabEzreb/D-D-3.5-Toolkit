@@ -2,15 +2,10 @@ package com.ezreb.graphics.menu;
 
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Menu;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.HierarchyBoundsListener;
-import java.awt.event.HierarchyEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 import com.ezreb.graphics.FullScreen;
 
@@ -31,10 +26,10 @@ public class MenuScreen extends Container {
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
-					if((long) evt.getNewValue()==2 && evt.getPropertyName()=="Open") {
-						MenuScreen.this.setVisible(true);
+					if((long) evt.getNewValue()==2 && evt.getPropertyName()=="Open" && MenuScreen.this.isShowing==true) {
+						//MenuScreen.this.setVisible(true);
 						MenuScreen.this.firePropertyChange("Open", (long) 2, (long) 1);
-						System.out.println("menuscren has been opened");
+						//System.out.println("menuscren has been opened");
 					}
 				} catch(ClassCastException e) {
 					System.out.println("y u feedin me non numbers?");
@@ -47,10 +42,11 @@ public class MenuScreen extends Container {
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				try {
-					if((long) evt.getNewValue()==2 && evt.getPropertyName()=="Close") {
-						MenuScreen.this.setVisible(false);
+					if((long) evt.getNewValue()==2) {
+						System.out.println(evt.getSource().toString());
+						//MenuScreen.this.setVisible(false);
 						MenuScreen.this.firePropertyChange("Close", (long) 2, (long) 1);
-						System.out.println("closed");
+						//System.out.println("closed");
 					}
 				} catch(ClassCastException e) {
 					System.out.println("y u feedin me non numbers?");
@@ -63,8 +59,13 @@ public class MenuScreen extends Container {
 	public Rectangle size;
 	public Point location;
 	public boolean isShowing = false;
+	public boolean isFirst;
 	public void open() {
-		if(this.getParent()!=null && this.getParent().isVisible()==true) {
+		if(this.isFirst) {
+			this.isFirst = false;
+			this.isShowing = true;
+		}
+		if(this.getParent()!=null && this.getParent().isVisible()==true && this.isShowing==true) {
 			this.setEnabled(true);
 			this.setSize(this.size.getSize());
 			this.setLocation(this.location);
@@ -73,35 +74,61 @@ public class MenuScreen extends Container {
 			this.getGraphics().drawRect(5, 5, 5, 5);
 			Component[] c = this.getComponents();
 			for (Component component : c) {
-				long one = 2;
-				long zero = 1;
-				//component.validate();
-				component.firePropertyChange("Open", zero, one);
-				component.setEnabled(true);
-				System.out.println(component);
-				System.out.println(component.isVisible());
+				if(component instanceof MenuOption) {
+					((MenuOption) component).draw();
+					System.out.println("workedopen"+component.getName());
+				} else {
+					long one = 2;
+					long zero = 1;
+					//component.validate();
+					component.setEnabled(true);
+					component.firePropertyChange("Open", zero, one);
+					//System.out.println(component);
+					//System.out.println(component.isVisible());
+				}
 			}
 			//this.getParent().firePropertyChange("Refresh", (long) 1, (long) 2);
 			this.paintComponents(this.getGraphics());
 			if(this.getParent() instanceof FullScreen) {
 				FullScreen s = (FullScreen) this.getParent();
-				s.firePropertyChange("Refresh", (long) 1, (long) 2);
+				//s.paintComponents(s.getGraphics());
+				s.hasUpdate = true;
+				synchronized(MainMenu.m) {
+					MainMenu.m.notifyAll();
+				}
 			}
 		}
 	}
 	@Override
 	public void setVisible(boolean b) {
 		// TODO Auto-generated method stub
-		super.setVisible(b);
-		this.setEnabled(b);
-		if(b==true) {
-			this.open();
-		} else {
-			this.close();
+		if(this.isShowing) {
+			if(b==true) {
+				this.open();
+			} else {
+				this.close();
+			}
+			super.setVisible(b);
+			this.setEnabled(b);
 		}
 	}
 	public void close() {
 		super.setVisible(false);
 		this.isShowing = false;
+		Component[] c = this.getComponents();
+		for (Component component : c) {
+			if(component instanceof MenuOption) {
+				((MenuOption) component).erase();
+				System.out.println("workedclose"+component.getName());
+			} else {
+				long one = 2;
+				long zero = 1;
+				//component.validate();
+				component.firePropertyChange("Close", zero, one);
+				component.setEnabled(false);
+				//System.out.println(component);
+				//System.out.println(component.isVisible());
+			}
+		}
 	}
 }
