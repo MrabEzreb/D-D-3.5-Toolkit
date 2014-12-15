@@ -1,5 +1,7 @@
 package testing;
 
+import java.io.IOException;
+
 import com.ezreb.graphics.FullScreen;
 import com.ezreb.graphics.HUD.Healthbar;
 import com.ezreb.graphics.menu.MainMenu;
@@ -11,7 +13,12 @@ public class Main {
 		//Healthbar h = new Healthbar(100, 100);
 		Thread.sleep(1000);
 		f.toggleVisible();
-		MainMenu.run(f);
+		try {
+			MainMenu.run(f);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //		for (int i = 0; i < 5; i++) {
 //			for (int j = 0; j < 101; j++) {
 //				h.setHealth(j);

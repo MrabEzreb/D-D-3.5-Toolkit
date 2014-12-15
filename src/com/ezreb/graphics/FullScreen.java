@@ -11,7 +11,10 @@ import java.awt.event.FocusListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import com.ezreb.graphics.menu.MainMenu;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.ezreb.graphics.menu.MenuOption;
 import com.ezreb.graphics.menu.MenuScreen;
 
 public class FullScreen extends Frame {
@@ -23,95 +26,30 @@ public class FullScreen extends Frame {
 
 	public FullScreen() {
 		this.setUndecorated(true);
+		JSONArray menus = new JSONArray();
+		this.comps.put("Menus", menus);
 		//this.setSize(640, 480);
 		this.toFront();
 		this.setAlwaysOnTop(true);
-		//this.getGraphics().setClip(0, 0, this.getSize().width, this.getSize().height);
-		//this.t.start();
+		this.setIgnoreRepaint(true);
 		this.addFocusListener(new FocusListener() {
 			
 			@Override
 			public void focusLost(FocusEvent e) {
-//				Frame f = new Frame("Error");
-//				f.setLayout(new FlowLayout(FlowLayout.CENTER));
-//				Point p = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
-//				f.setLocation(p.x-400, p.y-60);
-//				f.setSize(800, 120);
-//				Label l = new Label("For Some reason, java does not like me, and removes everything off of the window when you minimize it or alt-tab away from it.");
-//				Label l2 = new Label("So, because of this, I am forced to forcefully delete the window.");
-//				Label l3 = new Label("Note: I have (if I have done it yet) made it possible to recover your game.");
-//				Label l4 = new Label("Once the OK button appears, your recovery file has been generated.");
-//				l.setFont(new Font("Small", Font.ROMAN_BASELINE, 12));
-//				l2.setFont(new Font("Small", Font.ROMAN_BASELINE, 12));
-//				l3.setFont(new Font("Small", Font.ROMAN_BASELINE, 12));
-//				l4.setFont(new Font("Small", Font.ROMAN_BASELINE, 12));
-//				f.add(l);
-//				f.add(l2);
-//				f.add(l3);
-//				f.add(l4);
-//				Button b = new Button("OK");
-//				b.addActionListener(new ActionListener() {
-//					
-//					@Override
-//					public void actionPerformed(ActionEvent e) {
-//						System.exit(0);
-//						
-//					}
-//				});
-//				b.setVisible(false);
-//				f.add(b);
-//				FullScreen.this.dispose();
-//				f.setVisible(true);
-//				f.setAlwaysOnTop(true);
-//				RecoverySaver.save();
-//				b.setVisible(true);
 				
 			}
 			
 			@Override
 			public void focusGained(FocusEvent e) {
-				FullScreen.this.paintComponents(FullScreen.this.getGraphics());
+				//FullScreen.this.paintComponents(FullScreen.this.getGraphics());
 				Component[] c = FullScreen.this.getComponents();
 				for (Component component : c) {
 					try {
-						System.out.println(component);
+						if(((MenuScreen) component).isShowing()==true)
 						((MenuScreen) component).setVisible(true);
-						System.out.println(component);
 					} catch(ClassCastException e1) {
 						
 					}
-				}
-			}
-		});
-		this.addContainerListener(new ContainerListener() {
-			
-			@Override
-			public void componentRemoved(ContainerEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void componentAdded(ContainerEvent arg0) {
-				FullScreen.this.paintComponents(FullScreen.this.getGraphics());
-				
-			}
-		});
-		this.addPropertyChangeListener("Refresh", new PropertyChangeListener() {
-			
-			@Override
-			public void propertyChange(PropertyChangeEvent arg0) {
-				try {
-					if((long) arg0.getNewValue()==2) {
-						//FullScreen.this.paintComponents(FullScreen.this.getGraphics());
-						System.out.println("Full works");						
-						FullScreen.this.firePropertyChange("Refresh", (long) 2, (long) 1);
-						FullScreen.this.hasUpdate = true;
-					} else {
-						//Thread.sleep(1000);
-					}
-				} catch(ClassCastException e) {
-					System.out.println("whatever");
 				}
 			}
 		});
@@ -119,8 +57,7 @@ public class FullScreen extends Frame {
 	private Graphics g;
 	public boolean hasUpdate = false;
 	public boolean isUpdating = true;
-	private ScreenUpdate s = new ScreenUpdate(this);
-	private Thread t = new Thread(this.s, "Update Menus");
+	public JSONObject comps = new JSONObject();
 	@Override
 	public Graphics getGraphics() {
 		if(this.isVisible()==false) {
@@ -147,36 +84,26 @@ public class FullScreen extends Frame {
 		this.paintComponents(this.getGraphics());
 		System.out.println("painted");
 	}
-}
-class ScreenUpdate implements Runnable {
-
-	public ScreenUpdate(FullScreen f) {
-		this.f = f;
-	}
-	public FullScreen f;
 	@Override
-	public void run() {
-		while(f.isUpdating==true) {
-			synchronized(MainMenu.m) {
-//				try {
-//					MainMenu.m.wait();
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-				//f.paint();
-				this.f.paintComponents(f.getGraphics());
-				//System.out.println(this.f.getGraphics().getClip().getBounds().x);
-				//System.out.println(f.getGraphics().getClip().getBounds().y);
-				//f.hasUpdate = false;
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+	public Component add(Component comp) {
+		// TODO Auto-generated method stub
+		if(comp instanceof MenuScreen) {
+			MenuScreen m = (MenuScreen) comp;
+			JSONObject newComp = new JSONObject();
+			newComp.put("Is Open", m.isShowing());
+			Component[] ms = m.getComponents();
+			JSONArray options = new JSONArray();
+			for (Component component : ms) {
+				JSONObject curOption = new JSONObject();
+				if(component instanceof MenuOption) {
+					MenuOption mo = (MenuOption) component;
+					curOption.put("Words", mo.words);
+					options.put(curOption);
 				}
 			}
+			newComp.put("Options", options);
+			this.comps.getJSONArray("Menus").put(newComp);
 		}
-		
+		return super.add(comp);
 	}
 }
