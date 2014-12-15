@@ -6,7 +6,6 @@ package com.ezreb.graphics.menu;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -20,7 +19,7 @@ import com.ezreb.graphics.FullScreen;
  */
 public class MainMenu {
 
-	public static MenuScreen main = new MenuScreen(new Rectangle(301, 221), new Point(100, 100));
+	public static MenuScreen main = new MenuScreen(new Rectangle(301, 221), new Point(100, 100), "MainMenu");
 	public static MenuScreen testBack = new MenuScreen(new Rectangle(301, 201), new Point(100, 100));
 	public static void run(FullScreen f) throws IOException {
 		System.out.println(new File("src", "com/ezreb/graphics/images/Back.png").getAbsolutePath());

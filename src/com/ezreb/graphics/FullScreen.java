@@ -4,13 +4,10 @@ import java.awt.Component;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
-import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -51,6 +48,33 @@ public class FullScreen extends Frame {
 						
 					}
 				}
+			}
+		});
+		this.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+					Component[] c = FullScreen.this.getComponents();
+					for (Component component : c) {
+						if(component.getName()=="MainMenu") {
+							component.setVisible(!component.isVisible());
+						}
+					}
+				}
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	}
