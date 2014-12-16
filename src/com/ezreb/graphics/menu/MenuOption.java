@@ -104,13 +104,15 @@ public class MenuOption extends Component {
 		if(this.getParent()!=null && this.getParent().isVisible()==true) {
 			this.setVisible(false);
 			this.setVisible(true);
+			System.out.println(this.isDisplayable()+"option");
 			this.graph = (Graphics2D) this.getGraphics();
-			this.graph.drawImage(this.im, 5, 5, null);
+			this.graph.drawImage(this.im, 0, 0, null);
 		}
 	}
 	public void erase() {
-		this.setVisible(false);
+		this.graph = (Graphics2D) this.getGraphics();
 		this.graph.clearRect(0, 0, this.getWidth(), this.getHeight());
+		this.setVisible(false);
 	}
 	private static MenuScreen LEAVE_SCREEN = new MenuScreen(new Rectangle(1, 1), new Point(0, 0));
 }

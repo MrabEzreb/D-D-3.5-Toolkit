@@ -47,7 +47,8 @@ public class MenuScreen extends Container {
 			this.setLocation(this.location);
 			super.setVisible(true);
 			this.isShowing = true;
-			this.getGraphics().drawRect(5, 5, 5, 5);
+			//System.out.println(this.isDisplayable());
+			//this.getGraphics().drawRect(5, 5, 5, 5);
 			Component[] c = this.getComponents();
 			for (Component component : c) {
 				if(component instanceof MenuOption) {
@@ -66,6 +67,7 @@ public class MenuScreen extends Container {
 	public void setVisible(boolean b) {
 		// TODO Auto-generated method stub
 		this.isShowing = b;
+		super.setVisible(b);
 		if(b==true) {
 			this.validate();
 			this.open();
@@ -73,11 +75,10 @@ public class MenuScreen extends Container {
 		} else {
 			this.close();
 		}
-		super.setVisible(b);
 		this.setEnabled(b);
 	}
 	public void close() {
-		super.setVisible(false);
+		super.setVisible(true);
 		this.isShowing = false;
 		Component[] c = this.getComponents();
 		this.getGraphics().clearRect(0, 0, this.getWidth(), this.getHeight());
@@ -92,5 +93,6 @@ public class MenuScreen extends Container {
 				component.setEnabled(false);
 			}
 		}
+		super.setVisible(false);
 	}
 }

@@ -9,12 +9,14 @@ import java.nio.file.Files;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.ezreb.entity.Race;
+
 public class FileLoader {
 
 //	public FileLoader() {
 //		
 //	}
-	public static File pathFile = new File("/D-D-3.5-Toolkit/src/com/ezreb/utils/paths.txt");
+	public static File pathFile = new File("src", "com/ezreb/utils/paths.txt");
 	public static JSONObject files = new JSONObject();
 	public static JSONObject getFiles(String name) {
 		try {
@@ -44,6 +46,34 @@ public class FileLoader {
 			}
 		}
 		return pathToFile;
+	}
+	public static Race getRace(String name) {
+		try {
+			BufferedReader pathFileReader = Files.newBufferedReader(pathFile.toPath(), Charset.defaultCharset());
+			String json = pathFileReader.readLine();
+			files = new JSONObject(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		JSONObject pathToFile = null;
+		String path = null;
+		try {
+			pathToFile = files.getJSONObject("Files");
+			path = (String) pathToFile.get("Folder");
+		} catch (JSONException e) {
+			
+		}
+		File race = new File(path);
+		Race r = null;
+		try {
+			BufferedReader pathFileReader = Files.newBufferedReader(race.toPath(), Charset.defaultCharset());
+			String json = pathFileReader.readLine();
+			files = new JSONObject(json);
+			r = new Race(files);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return r;
 	}
 
 }

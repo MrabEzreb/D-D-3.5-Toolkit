@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import com.ezreb.graphics.menu.MenuOption;
 import com.ezreb.graphics.menu.MenuScreen;
+import com.ezreb.game.Singleplayer;
 
 public class FullScreen extends Frame {
 
@@ -26,9 +27,9 @@ public class FullScreen extends Frame {
 		JSONArray menus = new JSONArray();
 		this.comps.put("Menus", menus);
 		//this.setSize(640, 480);
+		this.setIgnoreRepaint(true);
 		this.toFront();
 		this.setAlwaysOnTop(true);
-		this.setIgnoreRepaint(true);
 		this.addFocusListener(new FocusListener() {
 			
 			@Override
@@ -41,40 +42,9 @@ public class FullScreen extends Frame {
 				//FullScreen.this.paintComponents(FullScreen.this.getGraphics());
 				Component[] c = FullScreen.this.getComponents();
 				for (Component component : c) {
-					try {
-						if(((MenuScreen) component).isShowing()==true)
-						((MenuScreen) component).setVisible(true);
-					} catch(ClassCastException e1) {
-						
-					}
+					//component.repaint();
+					component.setVisible(true);
 				}
-			}
-		});
-		this.addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-					Component[] c = FullScreen.this.getComponents();
-					for (Component component : c) {
-						if(component.getName()=="MainMenu") {
-							component.setVisible(!component.isVisible());
-						}
-					}
-				}
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
 			}
 		});
 	}

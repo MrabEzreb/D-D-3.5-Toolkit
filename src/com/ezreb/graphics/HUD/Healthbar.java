@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,7 +25,28 @@ public class Healthbar extends Component {
 		this(maxHealth, 0);
 	}
 	public Healthbar(int maxHealth, int curHealth) {
+		this.setIgnoreRepaint(true);
 		this.maxHealth = maxHealth;
+		this.setSize(201, 21);
+		this.validate();
+		this.addHierarchyListener(new HierarchyListener() {
+			
+			@Override
+			public void hierarchyChanged(HierarchyEvent arg0) {
+				if(Healthbar.this.isDisplayable()) {
+					Healthbar.this.setBounds(25, 50, 201, 21);
+					Healthbar.this.validate();
+					try {
+						Healthbar.this.draw();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					//System.out.println(Healthbar.this);
+				}
+				
+			}
+		});
 //		this.addHierarchyListener(new HierarchyListener() {
 //			
 //			@Override
@@ -63,13 +86,13 @@ public class Healthbar extends Component {
 	public Point relMouseLoc;
 	public void draw() throws IOException {
 		if(Healthbar.this.hasParent==true) {
-			this.setBounds(25, 50, 201, 21);
+			this.setSize(201, 21);
 			if(this.curHealth!=0) {
 				double ch = this.curHealth;
 				double mh = this.maxHealth;
-				this.health = new Rectangle(this.location.x, this.location.y, (int) Math.floor((ch/mh)*200), 20);
-				Image frame = ImageIO.read(new File("src", "com/ezreb/graphics/images/health_border.png")).getScaledInstance(this.getBounds().width, this.getBounds().height, Image.SCALE_DEFAULT);
-				Image fill = ImageIO.read(new File("src", "com/ezreb/graphics/images/health_bar.png")).getScaledInstance(this.health.width, this.health.height, Image.SCALE_DEFAULT);
+				this.health = new Rectangle(0, 0, (int) Math.floor((ch/mh)*200), 20);
+				Image frame = ImageIO.read(new File("src", "com/ezreb/graphics/images/health_border.png")).getScaledInstance(200, 20, Image.SCALE_DEFAULT);
+				Image fill = ImageIO.read(new File("src", "com/ezreb/graphics/images/health_bar.png")).getScaledInstance(this.health.width-1, this.health.height-1, Image.SCALE_DEFAULT);
 				this.getGraphics().drawImage(frame, 0, 0, null);
 				this.getGraphics().drawImage(fill, 0, 0, null);
 			}

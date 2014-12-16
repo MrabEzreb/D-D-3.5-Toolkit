@@ -14,7 +14,7 @@ import com.ezreb.player.Stat;
 public class InitialFileCreator {
 
 	public static void generateFiles() {
-		File settings = new File("/D-D-3.5-Toolkit/src/com/ezreb/utils/paths.txt");
+		File settings = new File("src", "com/ezreb/utils/paths.txt");
 		File thisJar = new File("");
 		try {
 			settings.delete();
@@ -49,7 +49,7 @@ public class InitialFileCreator {
 		try {
 			humanRace.createNewFile();
 			BufferedWriter writer2 = Files.newBufferedWriter(humanRace.toPath(), Charset.defaultCharset());
-			JSONObject human = new JSONObject("{Name:Human,Stat Changes:{},Physical Description:{Tall Height:6,Short Height:5,Heavy Weight:250,Light Weight:125,Skin Color:Most,Hair Color:Blond to Black,Child Age:5,Teen Age:12,Adult Age:21,Elder Age:65,Death Age:100}}");
+			JSONObject human = new JSONObject("{Name:Human,Stat Changes:{},physicalDescription:{Tall Height:6,Short Height:5,Heavy Weight:250,Light Weight:125,Skin Color:Most,Hair Color:Blond to Black,Child Age:5,Teen Age:12,Adult Age:21,Elder Age:65,Death Age:100}}");
 			writer2.write(human.toString());
 			writer2.flush();
 			writer2.close();
@@ -57,12 +57,8 @@ public class InitialFileCreator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		saveRace(new Race(new JSONObject("{Name:Dwarf,Stat Changes:{Constitution:2,Charisma:-2},Physical Description:{Tall Height:4.5,Short Height:4,Heavy Weight:250,Light Weight:125,Skin Color:Deep Tan or Light Brown,Hair Color:Black Gray or Brown,Child Age:10,Teen Age:29,Adult Age:40,Elder Age:300,Death Age:400}}")));
-		saveRace(new Race(new JSONObject("{Name:Elf,Stat Changes:{Constitution:-2,Dexterity:2},Physical Description:{Tall Height:5.5,Short Height:4.5,Heavy Weight:135,Light Weight:95,Skin Color:Pale,Hair Color:Dark,Child Age:25,Teen Age:75,Adult Age:110,Elder Age:500,Death Age:700}}")));
-		saveRace(new Race(new JSONObject()));
-		saveRace(new Race(new JSONObject()));
-		saveRace(new Race(new JSONObject()));
-		saveRace(new Race(new JSONObject()));
+		saveRace(new Race(new JSONObject("{Name:Dwarf,Stat Changes:{Constitution:2,Charisma:-2},physicalDescription:{Tall Height:4.5,Short Height:4,Heavy Weight:250,Light Weight:125,Skin Color:Deep Tan or Light Brown,Hair Color:Black Gray or Brown,Child Age:10,Teen Age:29,Adult Age:40,Elder Age:300,Death Age:400}}")));
+		saveRace(new Race(new JSONObject("{Name:Elf,Stat Changes:{Constitution:-2,Dexterity:2},physicalDescription:{Tall Height:5.5,Short Height:4.5,Heavy Weight:135,Light Weight:95,Skin Color:Pale,Hair Color:Dark,Child Age:25,Teen Age:75,Adult Age:110,Elder Age:500,Death Age:700}}")));
 		
 	}
 	public static void saveRace(Race r) {
