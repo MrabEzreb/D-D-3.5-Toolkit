@@ -35,12 +35,16 @@ public class Singleplayer extends Container{
 			@Override
 			public void keyReleased(KeyEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println("testing");
-				if(arg0.getKeyCode()==KeyEvent.VK_ESCAPE) {
+				//System.out.println("testing");
+				if(arg0.getKeyCode()==KeyEvent.VK_ESCAPE && Singleplayer.this.isVisible()) {
 					System.out.println("testing");
 					if(Singleplayer.this.hud.menu.isVisible()==false) {
+						//Singleplayer.this.hud.setVisible(true);
+						System.out.println("made right");
 						Singleplayer.this.hud.menu.setVisible(true);
 					} else if(Singleplayer.this.hud.menu.isVisible()==true) {
+						//Singleplayer.this.hud.setVisible(true);
+						System.out.println("made wrong");
 						Singleplayer.this.hud.menu.setVisible(false);
 					}
 				}
@@ -50,7 +54,7 @@ public class Singleplayer extends Container{
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				// TODO Auto-genezrzaztzezdz zmzeztzhzozdz zsztzuzbz z z z z z zz zzz z z  z z                                 zzzzzzzzzzzzzzzzzzz              zzzzzzzzzz            zzzz     zzz   zzz   zzzz zz zz   z  z z z z  z z z z zz  z z  z z z z z  z z z  z z z  z z z z z z z         zzzzzzzz         zzzzz       zz    z        zzzzzzz         zz        z   z z z z z z t g6ubuhjyghyhjgtdhjiuhbyudnfbnfbfn hfghdnbfvdhfvhuuhdhdbvdufii8yh
-				System.out.println("testing");
+				//System.out.println("testing");
 			}
 		});
 		this.addHierarchyListener(new HierarchyListener() {
@@ -74,9 +78,9 @@ public class Singleplayer extends Container{
 		Component[] c = this.getComponents();
 		for (Component component : c) {
 			if(component.isVisible()) {
-				System.out.println(component.getBounds());
+				//System.out.println(component.getBounds());
 				component.validate();
-				System.out.println(component);
+				//System.out.println(component);
 				component.getGraphics().clearRect(0, 0, component.getBounds().width, component.getBounds().height);
 				component.paint(component.getGraphics());
 				component.setIgnoreRepaint(false);
@@ -101,7 +105,7 @@ public class Singleplayer extends Container{
 		this.hud.menu.setVisible(false);
 		this.setEnabled(true);
 		super.setVisible(true);
-		System.out.println(this.isDisplayable());
+		//System.out.println(this.isDisplayable());
 		this.hud.setVisible(true);
 		this.hud.draw();
 		this.requestFocusInWindow();
@@ -117,7 +121,16 @@ public class Singleplayer extends Container{
 		super.setVisible(b);
 	}
 	public void dispose() {
+		try {
+			this.close();
+		} catch(NullPointerException e) {
+			System.out.println("testing");
+		}
 		this.setIgnoreRepaint(false);
+		Component[] c = this.getComponents();
+		for (Component component : c) {
+			this.remove(component);
+		}
 		this.removeAll();
 		this.invalidate();
 	}

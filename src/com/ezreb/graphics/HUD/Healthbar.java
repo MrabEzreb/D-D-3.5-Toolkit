@@ -25,8 +25,9 @@ public class Healthbar extends Component {
 		this(maxHealth, 0);
 	}
 	public Healthbar(int maxHealth, int curHealth) {
-		this.setIgnoreRepaint(true);
+		//this.setIgnoreRepaint(true);
 		this.maxHealth = maxHealth;
+		this.curHealth = curHealth;
 		this.setSize(201, 21);
 		this.validate();
 		this.addHierarchyListener(new HierarchyListener() {
@@ -85,18 +86,42 @@ public class Healthbar extends Component {
 	public Point mouseLocation = this.getMousePosition();
 	public Point relMouseLoc;
 	public void draw() throws IOException {
-		if(Healthbar.this.hasParent==true) {
+		//System.out.println("health worked b4");
+		if(Healthbar.this.getParent()!=null) {
 			this.setSize(201, 21);
+			//System.out.println("health worked");
+			//System.out.println(this.curHealth);
 			if(this.curHealth!=0) {
+				//System.out.println("health worked 2");
 				double ch = this.curHealth;
 				double mh = this.maxHealth;
 				this.health = new Rectangle(0, 0, (int) Math.floor((ch/mh)*200), 20);
 				Image frame = ImageIO.read(new File("src", "com/ezreb/graphics/images/health_border.png")).getScaledInstance(200, 20, Image.SCALE_DEFAULT);
 				Image fill = ImageIO.read(new File("src", "com/ezreb/graphics/images/health_bar.png")).getScaledInstance(this.health.width-1, this.health.height-1, Image.SCALE_DEFAULT);
-				this.getGraphics().drawImage(frame, 0, 0, null);
+				super.setVisible(true);
 				this.getGraphics().drawImage(fill, 0, 0, null);
+				this.getGraphics().drawImage(frame, 0, 0, null);
 			}
 		}
+	}
+	@Override
+	public void setVisible(boolean b) {
+		// TODO Auto-generated method stub
+		if(b==true) {
+			try {
+				this.draw();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			super.setVisible(true);
+			this.setIgnoreRepaint(true);
+			this.paintAll(this.getGraphics());
+			this.getGraphics().clearRect(0, 0, this.getWidth(), this.getHeight());
+			super.setVisible(false);
+		}
+		super.setVisible(b);
 	}
 	public Healthbar setHealthMax(int h) throws IOException {
 		this.maxHealth = h;

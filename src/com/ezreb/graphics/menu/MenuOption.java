@@ -104,7 +104,7 @@ public class MenuOption extends Component {
 		if(this.getParent()!=null && this.getParent().isVisible()==true) {
 			this.setVisible(false);
 			this.setVisible(true);
-			System.out.println(this.isDisplayable()+"option");
+			//System.out.println(this.isDisplayable()+"option");
 			this.graph = (Graphics2D) this.getGraphics();
 			this.graph.drawImage(this.im, 0, 0, null);
 		}

@@ -6,14 +6,11 @@ import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.ezreb.graphics.menu.MenuOption;
 import com.ezreb.graphics.menu.MenuScreen;
-import com.ezreb.game.Singleplayer;
 
 public class FullScreen extends Frame {
 

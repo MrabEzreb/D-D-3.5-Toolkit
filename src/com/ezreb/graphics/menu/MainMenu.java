@@ -48,6 +48,11 @@ public class MainMenu {
 		main.add(singleplayer);
 		testBack.add(back);
 		main.add(leave);
+		f.removeAll();
+		f.setIgnoreRepaint(false);
+		f.repaint();
+		f.getGraphics().clearRect(0, 0, f.getWidth(), f.getHeight());
+		f.setIgnoreRepaint(true);
 		f.add(main);
 		f.add(testBack);
 		f.add(MainMenu.singleplayer);

@@ -22,6 +22,8 @@ public class MenuScreen extends Container {
 		this.setLocation(p);
 		this.setEnabled(false);
 		this.setName(this.toString());
+		super.setVisible(false);
+		this.setIgnoreRepaint(true);
 		
 	}
 	public Rectangle size;
@@ -53,7 +55,7 @@ public class MenuScreen extends Container {
 			for (Component component : c) {
 				if(component instanceof MenuOption) {
 					((MenuOption) component).draw();
-					System.out.println("workedopen"+component.getName());
+					//System.out.println("workedopen"+component.getName());
 				} else {
 					long one = 2;
 					long zero = 1;
@@ -85,7 +87,7 @@ public class MenuScreen extends Container {
 		for (Component component : c) {
 			if(component instanceof MenuOption) {
 				((MenuOption) component).erase();
-				System.out.println("workedclose"+component.getName());
+				//System.out.println("workedclose"+component.getName());
 			} else {
 				long one = 2;
 				long zero = 1;
