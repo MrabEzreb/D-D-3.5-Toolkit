@@ -1,24 +1,20 @@
 package com.ezreb.game;
 
-import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.HierarchyListener;
-import java.awt.event.InputMethodEvent;
-import java.awt.event.InputMethodListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.EventListener;
-
 import com.ezreb.graphics.FullScreen;
 import com.ezreb.graphics.HUD.HUD;
-import com.ezreb.graphics.menu.MenuScreen;
 
 public class Singleplayer extends Container{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6556496619005926498L;
 	public Singleplayer(FullScreen f) {
 		this.setIgnoreRepaint(true);
 //		Component[] c = this.getComponents();
@@ -53,7 +49,7 @@ public class Singleplayer extends Container{
 			
 			@Override
 			public void keyPressed(KeyEvent arg0) {
-				// TODO Auto-generated method stub
+				// TODO Auto-genezrzaztzezdz zmzeztzhzozdz zsztzuzbz z z z z z zz zzz z z  z z                                 zzzzzzzzzzzzzzzzzzz              zzzzzzzzzz            zzzz     zzz   zzz   zzzz zz zz   z  z z z z  z z z z zz  z z  z z z z z  z z z  z z z  z z z z z z z         zzzzzzzz         zzzzz       zz    z        zzzzzzz         zz        z   z z z z z z t g6ubuhjyghyhjgtdhjiuhbyudnfbnfbfn hfghdnbfvdhfvhuuhdhdbvdufii8yh
 				System.out.println("testing");
 			}
 		});

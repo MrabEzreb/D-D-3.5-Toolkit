@@ -30,10 +30,12 @@ public class MainMenu {
 			
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				singleplayer.open();
-				singleplayer.close();
-				singleplayer.firePropertyChange("Open", 2, 1);
-				MainMenu.startGame(f);
+				if((long) evt.getNewValue()==(long) 2) {
+					singleplayer.open();
+					singleplayer.close();
+					singleplayer.firePropertyChange("Open", (long) 2, (long) 1);
+					MainMenu.startGame(f);
+				}
 				
 			}
 		});
