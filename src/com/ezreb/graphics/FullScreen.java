@@ -1,100 +1,165 @@
 package com.ezreb.graphics;
 
-import java.awt.Component;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.Frame;
-import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import com.ezreb.graphics.menu.MenuOption;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import java.awt.Dimension;
+import java.awt.Dialog.ModalExclusionType;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import com.ezreb.graphics.images.ImageLoader;
 import com.ezreb.graphics.menu.MenuScreen;
+import com.ezreb.graphics.menu.MenuOption;
+import com.ezreb.jsongen.JSONApplet;
 
-public class FullScreen extends Frame {
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import com.ezreb.game.Singleplayer;
+import com.ezreb.graphics.menu.OptionsMenu;
+
+public class FullScreen extends JFrame {
+	private MenuScreen MainMenu;
+	private Singleplayer singleplayer;
+	private OptionsMenu optionsMenu;
 
 	/**
-	 * 
+	 * Launch the application.
 	 */
-	private static final long serialVersionUID = 1740628702648147613L;
-
-	public FullScreen() {
-		this.setUndecorated(true);
-		JSONArray menus = new JSONArray();
-		this.comps.put("Menus", menus);
-		//this.setSize(640, 480);
-		this.setIgnoreRepaint(true);
-		this.toFront();
-		this.setAlwaysOnTop(true);
-		this.addFocusListener(new FocusListener() {
-			
-			@Override
-			public void focusLost(FocusEvent e) {
-				
-			}
-			
-			@Override
-			public void focusGained(FocusEvent e) {
-				//FullScreen.this.paintComponents(FullScreen.this.getGraphics());
-				Component[] c = FullScreen.this.getComponents();
-				for (Component component : c) {
-					//component.repaint();
-					component.setVisible(true);
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FullScreen frame = new FullScreen();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		});
 	}
-	private Graphics g;
-	public boolean hasUpdate = false;
-	public boolean isUpdating = true;
-	public JSONObject comps = new JSONObject();
-	@Override
-	public Graphics getGraphics() {
-		if(this.isVisible()==false) {
-			this.setVisible(true);
-			Graphics g = super.getGraphics();
-			this.setVisible(false);
-			this.g = g;
-		} else {
-			this.g = super.getGraphics();
-		}
-		return this.g;
-	}
-	public FullScreen toggleVisible() {
-		if(this.isVisible()==true) {
-			this.setVisible(false);
-		} else {
-			this.setVisible(true);
-		}
-		GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(this);
-		this.setAlwaysOnTop(true);
-		return this;
-	}
-	public void paint() {
-		this.paintComponents(this.getGraphics());
-		System.out.println("painted");
-	}
-	@Override
-	public Component add(Component comp) {
-		// TODO Auto-generated method stub
-		if(comp instanceof MenuScreen) {
-			MenuScreen m = (MenuScreen) comp;
-			JSONObject newComp = new JSONObject();
-			newComp.put("Is Open", m.isShowing());
-			Component[] ms = m.getComponents();
-			JSONArray options = new JSONArray();
-			for (Component component : ms) {
-				JSONObject curOption = new JSONObject();
-				if(component instanceof MenuOption) {
-					MenuOption mo = (MenuOption) component;
-					curOption.put("Words", mo.words);
-					options.put(curOption);
-				}
+
+	/**
+	 * Create the frame.
+	 */
+	public FullScreen() {
+		setBounds(new Rectangle(0, 0, 1366, 768));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				//GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(FullScreenTest.this);
 			}
-			newComp.put("Options", options);
-			this.comps.getJSONArray("Menus").put(newComp);
-		}
-		return super.add(comp);
+		});
+		setVisible(false);
+		setUndecorated(true);
+		setResizable(false);
+		setSize(new Dimension(1366, 768));
+		setBounds(0, 0, 1366, 768);
+		getContentPane().setLayout(null);
+		
+		MainMenu = new MenuScreen();
+		MainMenu.setIgnoreRepaint(false);
+		MainMenu.setOpaque(false);
+		MainMenu.setBounds(100, 100, 201, 404);
+		getContentPane().add(MainMenu);
+		
+		MenuOption SingleplayerOption = new MenuOption(200, 100, ImageLoader.SINGLEPLAYER_MENU);
+		SingleplayerOption.getCanvas().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				FullScreen.this.MainMenu.setVisible(false);
+				FullScreen.this.singleplayer.start();
+			}
+		});
+		SingleplayerOption.setBounds(0, 0, 200, 100);
+		MainMenu.add(SingleplayerOption);
+		
+		MenuOption JSONGenOption = new MenuOption(200, 100, ImageLoader.JSON_GENERATOR_MENU);
+		JSONGenOption.getCanvas().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				System.out.println("SOrtof worked");
+				FullScreen.this.setVisible(false);
+				JSONApplet j = new JSONApplet();
+				Frame f2 = new Frame();
+				j.start();
+				f2.setVisible(true);
+				j.setVisible(true);
+				j.setLocation(9, 31);
+				f2.setSize(468, 340);
+				f2.setPreferredSize(new Dimension(468, 340));
+				f2.add(j);
+				f2.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosing(WindowEvent e) {
+						// TODO Auto-generated method stub
+						e.getWindow().dispose();
+						super.windowClosing(e);
+					}
+				});
+				FullScreen.this.dispose();
+			}
+		});
+		JSONGenOption.setBounds(0, 101, 200, 100);
+		MainMenu.add(JSONGenOption);
+		
+		MenuOption ExitOption = new MenuOption(200, 100, ImageLoader.LEAVE_MENU);
+		ExitOption.getCanvas().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				super.mouseReleased(e);
+				System.exit(0);
+			}
+		});
+		ExitOption.setBounds(0, 303, 200, 100);
+		MainMenu.add(ExitOption);
+		
+		MenuOption menuOption = new MenuOption(200, 100, ImageLoader.BACK_OPTION);
+		menuOption.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				//System.out.println("go");
+				FullScreen.this.getMainMenu().setVisible(false);
+				FullScreen.this.getOptionsMenu().setVisible(true);
+				//System.out.println("go");
+			}
+		});
+		menuOption.setBounds(0, 202, 200, 100);
+		MainMenu.add(menuOption);
+		
+		singleplayer = new Singleplayer();
+		singleplayer.setVisible(false);
+		singleplayer.setBounds(0, 0, 1366, 768);
+		getContentPane().add(singleplayer);
+		
+		optionsMenu = new OptionsMenu();
+		optionsMenu.setBounds(0, 0, 1366, 768);
+		optionsMenu.setVisible(false);
+		getContentPane().add(optionsMenu);
+	}
+	public MenuScreen getMainMenu() {
+		return MainMenu;
+	}
+	public void start() {
+		this.setVisible(true);
+		this.MainMenu.start();
+	}
+	public Singleplayer getSingleplayer() {
+		return singleplayer;
+	}
+	public OptionsMenu getOptionsMenu() {
+		return optionsMenu;
 	}
 }

@@ -18,8 +18,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import com.ezreb.game.Singleplayer;
-import com.ezreb.graphics.FullScreen;
+import com.ezreb.game.SingleplayerDep;
+import com.ezreb.graphics.FullScreenDep;
 import com.ezreb.jsongen.JSONApplet;
 
 /**
@@ -28,11 +28,11 @@ import com.ezreb.jsongen.JSONApplet;
  */
 public class MainMenu {
 
-	public static MenuScreen main = new MenuScreen(new Rectangle(301, 331), new Point(100, 100), "MainMenu");
-	public static MenuScreen testBack = new MenuScreen(new Rectangle(301, 201), new Point(100, 100));
-	public static MenuScreen singleplayer = new MenuScreen(new Rectangle(301, 201), new Point(100, 100));
-	public static MenuScreen JSON2 = new MenuScreen(new Rectangle(301, 201), new Point(100, 100));
-	public static void run(final FullScreen f) throws IOException {
+	public static MenuScreenDep main = new MenuScreenDep(new Rectangle(301, 331), new Point(100, 100), "MainMenu");
+	public static MenuScreenDep testBack = new MenuScreenDep(new Rectangle(301, 201), new Point(100, 100));
+	public static MenuScreenDep singleplayer = new MenuScreenDep(new Rectangle(301, 201), new Point(100, 100));
+	public static MenuScreenDep JSON2 = new MenuScreenDep(new Rectangle(301, 201), new Point(100, 100));
+	public static void run(final FullScreenDep f) throws IOException {
 		singleplayer.addPropertyChangeListener("Open", new PropertyChangeListener() {
 			
 			@Override
@@ -60,10 +60,10 @@ public class MainMenu {
 		Image singleplayer2 = ImageIO.read(new File("src", "com/ezreb/graphics/images/Singleplayer.png")).getScaledInstance(200, 100, Image.SCALE_DEFAULT);
 		Image leave2 = ImageIO.read(new File("src", "com/ezreb/graphics/images/Leave.png")).getScaledInstance(200, 100, Image.SCALE_DEFAULT);
 		Image JSONGen = ImageIO.read(new File("src", "com/ezreb/graphics/images/JSONGen.png")).getScaledInstance(200, 100, Image.SCALE_DEFAULT);
-		MenuOption back = new MenuOption("Back", new Rectangle(200, 100), new Point(50, 50), back2, main);
-		MenuOption singleplayer = new MenuOption("Singleplayer", new Rectangle(200, 100), new Point(50, 10), singleplayer2, MainMenu.singleplayer);
-		MenuOption leave = new MenuOption("Leave", new Rectangle(200, 100), new Point(50, 120), leave2, null);
-		MenuOption JSON = new MenuOption("JSON", new Rectangle(200, 100), new Point(50, 230), JSONGen, MainMenu.JSON2);
+		MenuOptionDep back = new MenuOptionDep("Back", new Rectangle(200, 100), new Point(50, 50), back2, main);
+		MenuOptionDep singleplayer = new MenuOptionDep("Singleplayer", new Rectangle(200, 100), new Point(50, 10), singleplayer2, MainMenu.singleplayer);
+		MenuOptionDep leave = new MenuOptionDep("Leave", new Rectangle(200, 100), new Point(50, 120), leave2, null);
+		MenuOptionDep JSON = new MenuOptionDep("JSON", new Rectangle(200, 100), new Point(50, 230), JSONGen, MainMenu.JSON2);
 		main.add(singleplayer);
 		//testBack.add(back);
 		main.add(leave);
@@ -78,7 +78,7 @@ public class MainMenu {
 		f.add(MainMenu.singleplayer);
 		main.setVisible(true);
 	}
-	public static void startJSON(final FullScreen f) {
+	public static void startJSON(final FullScreenDep f) {
 		JSONApplet j = new JSONApplet();
 		final Frame f2 = new Frame();
 		f2.addWindowListener(new WindowListener() {
@@ -127,16 +127,10 @@ public class MainMenu {
 				
 			}
 		});
-		j.start();
-		f2.setVisible(true);
-		j.setVisible(true);
-		j.setLocation(9, 31);
-		f2.setSize(468, 340);
-		f2.setPreferredSize(new Dimension(468, 340));
-		f2.add(j);
+		
 	}
-	public static void startGame(FullScreen f) {
-		Singleplayer s = new Singleplayer(f);
+	public static void startGame(FullScreenDep f) {
+		SingleplayerDep s = new SingleplayerDep(f);
 		f.add(s);
 		s.setVisible(true);
 	}
