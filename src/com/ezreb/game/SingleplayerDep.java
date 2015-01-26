@@ -6,6 +6,7 @@ import java.awt.event.HierarchyEvent;
 import java.awt.event.HierarchyListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
 import com.ezreb.graphics.FullScreenDep;
 import com.ezreb.graphics.HUD.HUDDep;
 @Deprecated

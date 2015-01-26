@@ -4,40 +4,24 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
 import java.lang.reflect.Method;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-import javax.swing.LookAndFeel;
-
-import sun.applet.AppletViewer;
-import sun.nio.ch.WindowsAsynchronousChannelProvider;
-import sun.reflect.MethodAccessor;
-
+import com.ezreb.data.Language;
 import com.ezreb.game.Singleplayer;
-import com.ezreb.game.SingleplayerDep;
-import com.ezreb.graphics.FullScreenDep;
 import com.ezreb.graphics.FullScreen;
-import com.ezreb.graphics.HUD.HUD;
 import com.ezreb.graphics.HUD.Healthbar;
 import com.ezreb.graphics.images.ImageLoader;
-import com.ezreb.graphics.menu.MainMenu;
 import com.ezreb.graphics.menu.MenuOption;
 import com.ezreb.graphics.menu.MenuScreen;
 import com.ezreb.jsongen.JSONApplet;
 import com.ezreb.utils.InitialFileCreator;
 import com.ezreb.utils.JarAccess;
-import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
+import com.ezreb.utils.ProceduralArray;
 
 public class Main {
 
@@ -46,11 +30,20 @@ public class Main {
 		//Healthbar h = new Healthbar(100, 100);
 		Thread.sleep(1000);
 		//f.toggleVisible();
-		ImageLoader.loadImages();
-		File settings = new File("src", "com/ezreb/utils/paths.txt");
-		if(settings.exists()==false) {
-			InitialFileCreator.generateFiles();
+		if(args.length == 0) {
+			args = new String[1];
+			args[0] = "NewFullScreen";
+		} else if(args[0].equals("")) {
+			args[0] = "NewFullScreen";
 		}
+		if(args.length > 1 && args[1].equals("SkipPreInit")) {
+			System.out.println("skipped preinit");
+		} else {
+			ImageLoader.loadImages();
+			InitialFileCreator.generateFiles();
+			Language.loadLanguages();
+		}
+		
 		try {
 			if(args[0].equals("devWorld")) {
 				Singleplayer h = new Singleplayer();
@@ -217,6 +210,52 @@ public class Main {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			} else if(args[0].equals("DoNothing")) {
+				System.out.println("DidNothing!");
+			} else if(args[0].equals("CheckPaths")) {
+					Class<?> c = Main.class;
+					System.out.println(c.getResource("/com/ezreb/graphics/images/Back.png").toExternalForm());
+					ProceduralArray paths = new ProceduralArray(String.class);
+					try {
+						paths.addToArray(c.getResource("").toString());
+					} catch(NullPointerException e) {
+						System.out.println("1");
+					}
+					try {
+						paths.addToArray(c.getResource("com").toString());
+					} catch(NullPointerException e) {
+						System.out.println("2");
+					}
+					try {
+						paths.addToArray(c.getResource("src").toString());
+					} catch(NullPointerException e) {
+						System.out.println("3");
+					}
+					try {
+						paths.addToArray(c.getResource("/").toString());
+					} catch(NullPointerException e) {
+						System.out.println("3");
+					}
+					Object[] s = paths.getArray();
+					for (Object string : s) {
+						if (string instanceof String) {
+							String s2 = (String) string;
+							System.out.println(s2);
+						}
+					}
+					System.out.println(c.getResource("com"));
+					System.out.println(c.getResource("com/ezreb"));
+					System.out.println(c.getResource("com/ezreb/graphics"));
+					System.out.println(c.getResource("com/ezreb/graphics/images"));
+					System.out.println(c.getResource("com/ezreb/graphics/images/Back.png"));
+
+					System.out.println(c.getResource("com").getFile());
+//					System.out.println(c.getResource("com/ezreb").getPath());
+//					System.out.println(c.getResource("com/ezreb/graphics").getPath());
+//					System.out.println(c.getResource("com/ezreb/graphics/images").getPath());
+					System.out.println(new File(c.getResource("com/ezreb/graphics/images/Back.png").getFile()).getAbsolutePath());
+					System.out.println(new File(c.getResource("\\").getFile()).getAbsolutePath());
+					
 			} else {
 				System.out.println("what?");
 //				try {

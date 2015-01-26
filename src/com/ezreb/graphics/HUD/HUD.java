@@ -1,14 +1,18 @@
 package com.ezreb.graphics.HUD;
 
-import javax.swing.JPanel;
-
-import testing.SystemLogConfig;
-
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 
+import javax.swing.JPanel;
+
+import testing.SystemLogConfig;
+
 public class HUD extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3515163695508402624L;
 	private Healthbar healthbar;
 
 	/**

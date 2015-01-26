@@ -3,9 +3,7 @@
  */
 package com.ezreb.graphics.menu;
 
-import java.awt.Dimension;
 import java.awt.Frame;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -26,12 +24,14 @@ import com.ezreb.jsongen.JSONApplet;
  * @author Mrab Ezreb
  *
  */
+@SuppressWarnings("deprecation")
 public class MainMenu {
 
 	public static MenuScreenDep main = new MenuScreenDep(new Rectangle(301, 331), new Point(100, 100), "MainMenu");
 	public static MenuScreenDep testBack = new MenuScreenDep(new Rectangle(301, 201), new Point(100, 100));
 	public static MenuScreenDep singleplayer = new MenuScreenDep(new Rectangle(301, 201), new Point(100, 100));
 	public static MenuScreenDep JSON2 = new MenuScreenDep(new Rectangle(301, 201), new Point(100, 100));
+	@SuppressWarnings("unused")
 	public static void run(final FullScreenDep f) throws IOException {
 		singleplayer.addPropertyChangeListener("Open", new PropertyChangeListener() {
 			
@@ -78,6 +78,7 @@ public class MainMenu {
 		f.add(MainMenu.singleplayer);
 		main.setVisible(true);
 	}
+	@SuppressWarnings("unused")
 	public static void startJSON(final FullScreenDep f) {
 		JSONApplet j = new JSONApplet();
 		final Frame f2 = new Frame();

@@ -7,6 +7,10 @@ import javax.swing.JPanel;
 public class MenuScreen extends JPanel {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3884138822268843554L;
+	/**
 	 * Create the panel.
 	 */
 	public MenuScreen() {

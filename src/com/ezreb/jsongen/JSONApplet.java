@@ -1,41 +1,31 @@
 package com.ezreb.jsongen;
 
-import javax.swing.JApplet;
-
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
-import javax.swing.JPanel;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import java.awt.FlowLayout;
-
-import javax.swing.JLayeredPane;
-import javax.swing.JEditorPane;
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
-
-import java.awt.Font;
-
-import javax.swing.JSplitPane;
+import javax.swing.JApplet;
 import javax.swing.JButton;
-import javax.swing.AbstractAction;
-
-import java.awt.event.ActionEvent;
-
-import javax.swing.Action;
+import javax.swing.JEditorPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 
 import org.json.JSONObject;
-
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.Dimension;
 
 public class JSONApplet extends JApplet {
 
@@ -57,6 +47,7 @@ public class JSONApplet extends JApplet {
 	private JTextField BODAY;
 	private JEditorPane txtTesting1 = new JEditorPane();
 	private JTextArea StatChanges;
+	@SuppressWarnings("unused")
 	private final Action action = new SwingAction();
 	private JTextField StatName;
 	public JTabbedPane tabbedPane;
@@ -310,6 +301,119 @@ public class JSONApplet extends JApplet {
 		gl_Stat.setAutoCreateContainerGaps(true);
 		Stat.setLayout(gl_Stat);
 		
+		JPanel Language = new JPanel();
+		tabbedPane.addTab("Language", null, Language, "Generates JSON Text for new Languages.");
+		Language.setLayout(null);
+		
+		JScrollBar scrollBar = new JScrollBar();
+		scrollBar.setBounds(428, 0, 17, 233);
+		Language.add(scrollBar);
+		
+		JSplitPane splitQuestion_1 = new JSplitPane();
+		splitQuestion_1.setDividerSize(0);
+		splitQuestion_1.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		splitQuestion_1.setBounds(10, 10, 400, 25);
+		Language.add(splitQuestion_1);
+		
+		JLabel lblName_1 = new JLabel("Name");
+		lblName_1.setHorizontalAlignment(SwingConstants.CENTER);
+		splitQuestion_1.setLeftComponent(lblName_1);
+		
+		textField = new JTextField();
+		splitQuestion_1.setRightComponent(textField);
+		textField.setColumns(10);
+		splitQuestion_1.setDividerLocation(200);
+		
+		JSplitPane splitPane_1 = new JSplitPane();
+		splitPane_1.setDividerSize(0);
+		splitPane_1.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		splitPane_1.setBounds(10, 34, 400, 25);
+		Language.add(splitPane_1);
+		
+		JLabel lblGraphicstab = new JLabel("Graphics (tab)");
+		lblGraphicstab.setHorizontalAlignment(SwingConstants.CENTER);
+		splitPane_1.setLeftComponent(lblGraphicstab);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		splitPane_1.setRightComponent(textField_1);
+		splitPane_1.setDividerLocation(200);
+		
+		JSplitPane splitPane_2 = new JSplitPane();
+		splitPane_2.setDividerSize(0);
+		splitPane_2.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		splitPane_2.setBounds(10, 58, 400, 25);
+		Language.add(splitPane_2);
+		
+		JLabel lblLanguagetab = new JLabel("Language (tab)");
+		lblLanguagetab.setHorizontalAlignment(SwingConstants.CENTER);
+		splitPane_2.setLeftComponent(lblLanguagetab);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		splitPane_2.setRightComponent(textField_2);
+		splitPane_2.setDividerLocation(200);
+		
+		JSplitPane splitPane_3 = new JSplitPane();
+		splitPane_3.setDividerSize(0);
+		splitPane_3.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		splitPane_3.setBounds(10, 83, 400, 25);
+		Language.add(splitPane_3);
+		
+		JLabel lblControlstab = new JLabel("Controls (tab)");
+		lblControlstab.setHorizontalAlignment(SwingConstants.CENTER);
+		splitPane_3.setLeftComponent(lblControlstab);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		splitPane_3.setRightComponent(textField_3);
+		splitPane_3.setDividerLocation(200);
+		
+		JSplitPane splitPane_4 = new JSplitPane();
+		splitPane_4.setDividerSize(0);
+		splitPane_4.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		splitPane_4.setBounds(10, 108, 400, 25);
+		Language.add(splitPane_4);
+		
+		JLabel lblSoundtab = new JLabel("Sound (tab)");
+		lblSoundtab.setHorizontalAlignment(SwingConstants.CENTER);
+		splitPane_4.setLeftComponent(lblSoundtab);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		splitPane_4.setRightComponent(textField_4);
+		splitPane_4.setDividerLocation(200);
+		
+		JSplitPane splitPane_5 = new JSplitPane();
+		splitPane_5.setDividerSize(0);
+		splitPane_5.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		splitPane_5.setBounds(10, 133, 400, 25);
+		Language.add(splitPane_5);
+		
+		JLabel lblResolutiongraphics = new JLabel("Resolution (Graphics)");
+		lblResolutiongraphics.setHorizontalAlignment(SwingConstants.CENTER);
+		splitPane_5.setLeftComponent(lblResolutiongraphics);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		splitPane_5.setRightComponent(textField_5);
+		splitPane_5.setDividerLocation(200);
+		
+		JSplitPane splitPane_6 = new JSplitPane();
+		splitPane_6.setDividerSize(0);
+		splitPane_6.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		splitPane_6.setBounds(10, 158, 400, 25);
+		Language.add(splitPane_6);
+		
+		JLabel lblOriginalBetter = new JLabel("Original & Better Images (Graphics)");
+		lblOriginalBetter.setHorizontalAlignment(SwingConstants.CENTER);
+		splitPane_6.setLeftComponent(lblOriginalBetter);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		splitPane_6.setRightComponent(textField_6);
+		splitPane_6.setDividerLocation(200);
+		
 		JSplitPane splitPane = new JSplitPane();
 		getContentPane().add(splitPane, BorderLayout.SOUTH);
 		txtTesting1.setText("JSON will appear here");
@@ -346,6 +450,16 @@ public class JSONApplet extends JApplet {
 					gen.put("Min", r.StatMinimum.getText());
 					gen.put("Max", r.StatMaximum.getText());
 					r.txtTesting1.setText(gen.toString());
+				} else if(r.tabbedPane.getSelectedIndex()==2) {
+					JSONObject lang = new JSONObject();
+					lang.put("Name", textField.getText());
+					lang.put("Graphics Tab", textField_1.getText());
+					lang.put("Language Tab", textField_2.getText());
+					lang.put("Controls Tab", textField_3.getText());
+					lang.put("Sound Tab", textField_4.getText());
+					lang.put("Resolution", textField_5.getText());
+					lang.put("Better Images", textField_6.getText());
+					r.txtTesting1.setText(lang.toString());
 				}
 //				r.
 			}
@@ -354,12 +468,44 @@ public class JSONApplet extends JApplet {
 
 
 	}
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_4;
 	private class SwingAction extends AbstractAction {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -1357692268391657274L;
 		public SwingAction() {
 			putValue(NAME, "SwingAction");
 			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 		public void actionPerformed(ActionEvent e) {
 		}
+	}
+	public JTextField getTextField() {
+		return textField;
+	}
+	public JTextField getTextField_1() {
+		return textField_1;
+	}
+	public JTextField getTextField_2() {
+		return textField_2;
+	}
+	public JTextField getTextField_3() {
+		return textField_3;
+	}
+	public JTextField getTextField_4() {
+		return textField_4;
+	}
+	public JTextField getTextField_5() {
+		return textField_5;
+	}
+	public JTextField getTextField_6() {
+		return textField_6;
 	}
 }

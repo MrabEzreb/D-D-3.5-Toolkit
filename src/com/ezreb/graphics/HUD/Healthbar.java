@@ -1,34 +1,19 @@
 package com.ezreb.graphics.HUD;
 
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
-
+import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-
-import java.awt.Canvas;
-
-import javax.swing.JProgressBar;
 
 import testing.SystemLogConfig;
 
 import com.ezreb.graphics.images.ImageLoader;
 
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.io.File;
-import java.io.IOException;
-
 public class Healthbar extends HUDElement {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3050982147229609462L;
 	/**
 	 * Create the panel.
 	 */
@@ -51,6 +36,7 @@ public class Healthbar extends HUDElement {
 	private double length;
 	private int xlength = 300;
 	private int ylength = 30;
+	@SuppressWarnings("unused")
 	private boolean isShown = false;
 	private Canvas canvas;
 	private Image border = ImageLoader.HEALTH_BORDER.getScaledInstance(xlength, ylength, Image.SCALE_DEFAULT);

@@ -1,17 +1,8 @@
 package com.ezreb.game;
 
-import javax.swing.JPanel;
-
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Rectangle;
-
-import com.ezreb.graphics.FullScreen;
-import com.ezreb.graphics.HUD.HUD;
-import com.ezreb.graphics.images.ImageLoader;
-import com.ezreb.graphics.menu.MenuScreen;
-import com.ezreb.graphics.menu.MenuOption;
-import com.ezreb.game.DisplayEffects;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -20,11 +11,24 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JSplitPane;
-import javax.swing.JTextField;
+
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import com.ezreb.graphics.FullScreen;
+import com.ezreb.graphics.HUD.HUD;
+import com.ezreb.graphics.images.ImageLoader;
+import com.ezreb.graphics.menu.MenuOption;
+import com.ezreb.graphics.menu.MenuScreen;
 
 public class Singleplayer extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5088286743909861340L;
 	private HUD hud;
 	private MenuScreen menuScreen;
 	private MenuOption menuOption;
@@ -50,6 +54,7 @@ public class Singleplayer extends JPanel {
 				} else if(e.getKeyCode()==KeyEvent.VK_F3 && e.isControlDown()==true) {
 					if(Singleplayer.this.CheatMenu.isVisible()==false) {
 						Singleplayer.this.CheatMenu.setVisible(true);
+						Singleplayer.this.lblNewLabel.setVisible(true);
 						Singleplayer.this.CheatMenu.requestFocusInWindow();
 					}
 				}
@@ -211,6 +216,53 @@ public class Singleplayer extends JPanel {
 		
 		btnSetMaxHealth = new JButton("Set Max Health");
 		MaximumHealth.setRightComponent(btnSetMaxHealth);
+		
+		lblNewLabel = new JTextArea("New label") {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public void onStart() {
+				boolean isValid = true;
+				int level = 1;
+				String txt = lblNewLabel.getClass().getSuperclass().getSimpleName();
+				System.out.println(txt);
+				Component c = lblNewLabel;
+				while (isValid) {
+					String moreTxt;
+					System.out.println("did the while");
+					if(level>1) {
+						System.out.println("did the if");
+						try {
+							System.out.println("did the try");
+							c = c.getParent();
+							
+							moreTxt = c.getClass().getSimpleName();
+							System.out.println(moreTxt);
+							txt = moreTxt+" > \n"+txt;
+						} catch(NullPointerException e) {
+							System.out.println("did the catch");
+							isValid = false;
+						}
+					}
+					level = level+1;
+				}
+				lblNewLabel.setText(txt);
+			}
+			@Override
+			public void setVisible(boolean aFlag) {
+				// TODO Auto-generated method stub
+				super.setVisible(aFlag);
+				if(aFlag) {
+					onStart();
+				}
+			}
+		};
+		lblNewLabel.setBounds(0, 50, 200, 150);
+		lblNewLabel.setEditable(false);
+		lblNewLabel.setLineWrap(true);
+		CheatMenu.add(lblNewLabel);
 		btnSetMaxHealth.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -239,6 +291,7 @@ public class Singleplayer extends JPanel {
 		add(hud);
 
 	}
+	JTextArea lblNewLabel;
 
 	public HUD getHud() {
 		return hud;

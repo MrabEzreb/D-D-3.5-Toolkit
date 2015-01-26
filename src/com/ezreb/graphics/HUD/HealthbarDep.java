@@ -85,6 +85,7 @@ public class HealthbarDep extends Component {
 	public Point location = new Point(0, 0);
 	public Point mouseLocation = this.getMousePosition();
 	public Point relMouseLoc;
+	@SuppressWarnings("unused")
 	public void draw() throws IOException {
 		//System.out.println("health worked b4");
 		if(HealthbarDep.this.getParent()!=null) {

@@ -1,93 +1,70 @@
 package com.ezreb.utils;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.json.JSONObject;
-
-import com.ezreb.entity.Race;
-import com.ezreb.player.Stat;
 
 public class InitialFileCreator {
 
 	public static void generateFiles() {
-		File settings = new File("src", "com/ezreb/utils/paths.txt");
-		File thisJar = new File("");
-		try {
-			settings.delete();
-			settings.createNewFile();
-			BufferedWriter writer = Files.newBufferedWriter(settings.toPath(), Charset.defaultCharset());
-			JSONObject path = new JSONObject();
-			JSONObject files = new JSONObject();
-			JSONObject areas = new JSONObject();
-			areas.put("Dungeons", thisJar.getAbsolutePath()+"/DnD Toolkit/Areas/Dungeons");
-			areas.put("Towns", thisJar.getAbsolutePath()+"/DnD Toolkit/Areas/Towns");
-			areas.put("Wildernesses", thisJar.getAbsolutePath()+"/DnD Toolkit/Areas/Wildernesses");
-			files.put("Folder", thisJar.getAbsolutePath()+"/DnD Toolkit");
-			files.put("Races", thisJar.getAbsolutePath()+"/DnD Toolkit/Races");
-			files.put("Stats", thisJar.getAbsolutePath()+"/DnD Toolkit/Stats");
-			files.put("Areas", areas);
-			files.put("Campaigns", thisJar.getAbsolutePath()+"/DnD Toolkit/Campaigns");
-			path.put("Files", files);
-			writer.write(path.toString());
-			writer.flush();
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		System.out.println(baseFolder.getAbsolutePath());
+		if(baseFolder.exists() && raceFolder.exists() && langFolder.exists() && statFolder.exists()) {
+			return;
 		}
-		String path2 = thisJar.getAbsolutePath()+"/DnD Toolkit";
-		File folder = new File(path2);
-		folder.mkdirs();
-		File raceFolder = new File(path2+"/Races");
-		raceFolder.mkdirs();
-		File statsFolder = new File(path2+"/Stats");
-		statsFolder.mkdirs();
-		File humanRace = new File(path2+"/Races/Human.json");
-		try {
-			humanRace.createNewFile();
-			BufferedWriter writer2 = Files.newBufferedWriter(humanRace.toPath(), Charset.defaultCharset());
-			JSONObject human = new JSONObject("{Name:Human,Stat Changes:{},physicalDescription:{Tall Height:6,Short Height:5,Heavy Weight:250,Light Weight:125,Skin Color:Most,Hair Color:Blond to Black,Child Age:5,Teen Age:12,Adult Age:21,Elder Age:65,Death Age:100}}");
-			writer2.write(human.toString());
-			writer2.flush();
-			writer2.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		System.out.println(baseFolder.toPath());
+		if(raceFolder.exists() != true) {
+			raceFolder.mkdirs();
 		}
-		saveRace(new Race(new JSONObject("{Name:Dwarf,Stat Changes:{Constitution:2,Charisma:-2},physicalDescription:{Tall Height:4.5,Short Height:4,Heavy Weight:250,Light Weight:125,Skin Color:Deep Tan or Light Brown,Hair Color:Black Gray or Brown,Child Age:10,Teen Age:29,Adult Age:40,Elder Age:300,Death Age:400}}")));
-		saveRace(new Race(new JSONObject("{Name:Elf,Stat Changes:{Constitution:-2,Dexterity:2},physicalDescription:{Tall Height:5.5,Short Height:4.5,Heavy Weight:135,Light Weight:95,Skin Color:Pale,Hair Color:Dark,Child Age:25,Teen Age:75,Adult Age:110,Elder Age:500,Death Age:700}}")));
+		if(langFolder.exists() != true) {
+			langFolder.mkdirs();
+			saveFile(langFolder, "English", new JSONObject("{\"Better Images\":\"Enable Original, Better Images?\",\"Controls Tab\":\"Controls\",\"Language Tab\":\"Language\",\"Name\":\"English\",\"Resolution\":\"Resolution\",\"Graphics Tab\":\"Graphics\",\"Sound Tab\":\"Sound\"}"));
+			saveFile(langFolder, "Current", new JSONObject("{\"Current\":\"English\"}"));
+			saveFile(langFolder, "Latin", new JSONObject("{\"Better Images\":\"Enablem Originalum, Betteram Imageres?\",\"Controls Tab\":\"Controlam\",\"Language Tab\":\"Languagere\",\"Name\":\"Bestere Latinamus Everam\",\"Resolution\":\"Resolutioneres\",\"Graphics Tab\":\"Graphicamus\",\"Sound Tab\":\"Soundarum\"}"));
+		}
+		if(statFolder.exists() != true) {
+			statFolder.mkdirs();
+			saveFile(statFolder, "Strength", new  JSONObject("{Name:Strength,Max:16,Min:3}"));
+			saveFile(statFolder, "Dexterity", new  JSONObject("{Name:Dexterity,Max:16,Min:3}"));
+			saveFile(statFolder, "Constitution", new  JSONObject("{Name:Constitution,Max:16,Min:3}"));
+			saveFile(statFolder, "Intelligence", new  JSONObject("{Name:Intelligence,Max:16,Min:3}"));
+			saveFile(statFolder, "Wisdom", new  JSONObject("{Name:Wisdom,Max:16,Min:3}"));
+			saveFile(statFolder, "Charisma", new  JSONObject("{Name:Charisma,Max:16,Min:3}"));
+		}
 		
 	}
-	public static void saveRace(Race r) {
-		File thisJar = new File("");
-		String path2 = thisJar.getAbsolutePath()+"/DnD Toolkit";
-		File newRace = new File(path2+"/Races/"+r.name+".json");
+	public static File baseFolder = new File(new File("D&D Toolkit"), "");
+	public static File raceFolder = new File(baseFolder, "Races");
+	public static File langFolder = new File(baseFolder, "Languages");
+	public static File statFolder = new File(baseFolder, "Stats");
+	public static void saveFile(File where, String name, JSONObject data) {
+		Path file = new File(where.getAbsolutePath()+"/"+name+".json").toPath();
 		try {
-			newRace.createNewFile();
-			BufferedWriter writer = Files.newBufferedWriter(newRace.toPath(), Charset.defaultCharset());
-			writer.write(r.fullStuff.toString());
-			writer.flush();
-			writer.close();
+			BufferedWriter bw = Files.newBufferedWriter(file, Charset.defaultCharset());
+			bw.write(data.toString());
+			bw.flush();
+			bw.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	public static void saveStat(Stat s) {
-		File thisJar = new File("");
-		String path2 = thisJar.getAbsolutePath()+"DnD Toolkit";
-		File newStat = new File(path2+"/Stats/"+s.name+".json");
+	public static JSONObject loadFile(File where, String name) {
+		Path file = new File(where.getAbsolutePath()+"/"+name+".json").toPath();
+		BufferedReader br;
+		JSONObject retVal = new JSONObject();
 		try {
-			newStat.createNewFile();
-			BufferedWriter writer = Files.newBufferedWriter(newStat.toPath(), Charset.defaultCharset());
-			writer.write(s.fullStuff.toString());
-			writer.flush();
-			writer.close();
-		} catch(IOException e) {
+			br = Files.newBufferedReader(file, Charset.defaultCharset());
+			retVal = new JSONObject(br.readLine());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return retVal;
 	}
 }

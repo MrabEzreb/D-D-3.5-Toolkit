@@ -1,34 +1,28 @@
 package com.ezreb.graphics;
 
-import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Frame;
-import java.awt.GraphicsEnvironment;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.Dimension;
-import java.awt.Dialog.ModalExclusionType;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import com.ezreb.graphics.images.ImageLoader;
-import com.ezreb.graphics.menu.MenuScreen;
-import com.ezreb.graphics.menu.MenuOption;
-import com.ezreb.jsongen.JSONApplet;
-
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JFrame;
+
 import com.ezreb.game.Singleplayer;
+import com.ezreb.graphics.images.ImageLoader;
+import com.ezreb.graphics.menu.MenuOption;
+import com.ezreb.graphics.menu.MenuScreen;
 import com.ezreb.graphics.menu.OptionsMenu;
+import com.ezreb.jsongen.JSONApplet;
 
 public class FullScreen extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7587783284451167747L;
 	private MenuScreen MainMenu;
 	private Singleplayer singleplayer;
 	private OptionsMenu optionsMenu;
@@ -53,7 +47,9 @@ public class FullScreen extends JFrame {
 	 * Create the frame.
 	 */
 	public FullScreen() {
-		setBounds(new Rectangle(0, 0, 1366, 768));
+		int width = 1366;
+		int height = 768;
+		setBounds(new Rectangle(0, 0, width, height));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -64,8 +60,8 @@ public class FullScreen extends JFrame {
 		setVisible(false);
 		setUndecorated(true);
 		setResizable(false);
-		setSize(new Dimension(1366, 768));
-		setBounds(0, 0, 1366, 768);
+		setSize(new Dimension(width, height));
+		setBounds(0, 0, width, height);
 		getContentPane().setLayout(null);
 		
 		MainMenu = new MenuScreen();
@@ -127,7 +123,7 @@ public class FullScreen extends JFrame {
 		MainMenu.add(ExitOption);
 		
 		MenuOption menuOption = new MenuOption(200, 100, ImageLoader.BACK_OPTION);
-		menuOption.addMouseListener(new MouseAdapter() {
+		menuOption.getCanvas().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				//System.out.println("go");

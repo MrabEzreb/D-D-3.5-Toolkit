@@ -1,20 +1,19 @@
 package com.ezreb.graphics.menu;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-
+import java.awt.Canvas;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.Canvas;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+
+import javax.swing.JPanel;
 
 public class MenuOption extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3767597679914217830L;
 	/**
 	 * Create the panel.
 	 */
