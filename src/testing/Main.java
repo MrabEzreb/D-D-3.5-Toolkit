@@ -7,9 +7,6 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 
 import com.ezreb.data.Language;
 import com.ezreb.game.Singleplayer;
@@ -19,6 +16,7 @@ import com.ezreb.graphics.images.ImageLoader;
 import com.ezreb.graphics.menu.MenuOption;
 import com.ezreb.graphics.menu.MenuScreen;
 import com.ezreb.jsongen.JSONApplet;
+import com.ezreb.utils.Copier;
 import com.ezreb.utils.InitialFileCreator;
 import com.ezreb.utils.JarAccess;
 import com.ezreb.utils.ProceduralArray;
@@ -194,14 +192,14 @@ public class Main {
 				System.out.println(JarAccess.installer);
 				File f = JarAccess.installer;
 				System.out.println(f.canExecute());
-				Path copyDir = new File(f.getParentFile().getParentFile().getParentFile().getPath()+"/test.exe").toPath();
+				File copyDir = new File(f.getParentFile().getParentFile().getParentFile().getPath()+"/test.exe");
 				try {
-					Files.copy(f.toPath(), copyDir, StandardCopyOption.REPLACE_EXISTING);
+					Copier.copy(f, copyDir);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				File f2 = copyDir.toFile();
+				File f2 = copyDir;
 				System.out.println(f2.canExecute());
 				f2.setExecutable(true, false);
 				try {

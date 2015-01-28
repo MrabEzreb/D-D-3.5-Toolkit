@@ -3,9 +3,9 @@ package com.ezreb.utils;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.json.JSONObject;
@@ -38,14 +38,15 @@ public class InitialFileCreator {
 		}
 		
 	}
-	public static File baseFolder = new File(new File("D&D Toolkit"), "");
+	public static File baseFolder = new File(new File(System.getProperty("user.home")), "AppData\\Roaming\\Ezreb\\D&D");
 	public static File raceFolder = new File(baseFolder, "Races");
 	public static File langFolder = new File(baseFolder, "Languages");
 	public static File statFolder = new File(baseFolder, "Stats");
 	public static void saveFile(File where, String name, JSONObject data) {
-		Path file = new File(where.getAbsolutePath()+"/"+name+".json").toPath();
+		File file = new File(where.getAbsolutePath()+"/"+name+".json");
 		try {
-			BufferedWriter bw = Files.newBufferedWriter(file, Charset.defaultCharset());
+			FileWriter fw = new FileWriter(file);
+			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(data.toString());
 			bw.flush();
 			bw.close();
@@ -55,12 +56,13 @@ public class InitialFileCreator {
 		}
 	}
 	public static JSONObject loadFile(File where, String name) {
-		Path file = new File(where.getAbsolutePath()+"/"+name+".json").toPath();
-		BufferedReader br;
+		File file = new File(where.getAbsolutePath()+"/"+name+".json");
+		BufferedReader br = null;
 		JSONObject retVal = new JSONObject();
 		try {
-			br = Files.newBufferedReader(file, Charset.defaultCharset());
+			br = new BufferedReader(new FileReader(file));
 			retVal = new JSONObject(br.readLine());
+			br.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

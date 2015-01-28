@@ -2,9 +2,8 @@ package com.ezreb.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,9 +19,10 @@ public class FileLoader {
 	public static JSONObject files = new JSONObject();
 	public static JSONObject getFiles(String name) {
 		try {
-			BufferedReader pathFileReader = Files.newBufferedReader(pathFile.toPath(), Charset.defaultCharset());
+			BufferedReader pathFileReader = new BufferedReader(new FileReader(pathFile));
 			String json = pathFileReader.readLine();
 			files = new JSONObject(json);
+			pathFileReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -49,9 +49,10 @@ public class FileLoader {
 	}
 	public static Race getRace(String name) {
 		try {
-			BufferedReader pathFileReader = Files.newBufferedReader(pathFile.toPath(), Charset.defaultCharset());
+			BufferedReader pathFileReader = new BufferedReader(new FileReader(pathFile));
 			String json = pathFileReader.readLine();
 			files = new JSONObject(json);
+			pathFileReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -66,10 +67,11 @@ public class FileLoader {
 		File race = new File(path);
 		Race r = null;
 		try {
-			BufferedReader pathFileReader = Files.newBufferedReader(race.toPath(), Charset.defaultCharset());
+			BufferedReader pathFileReader = new BufferedReader(new FileReader(race));
 			String json = pathFileReader.readLine();
 			files = new JSONObject(json);
 			r = new Race(files);
+			pathFileReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

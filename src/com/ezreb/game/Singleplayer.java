@@ -302,6 +302,8 @@ public class Singleplayer extends JPanel {
 		this.hud.start();
 		requestFocus();
 		requestFocusInWindow();
+		DisplayEffects de = new DisplayEffects();
+		this.add(de.s.getCanvas());
 	}
 	public MenuScreen getMenuScreen() {
 		return menuScreen;
