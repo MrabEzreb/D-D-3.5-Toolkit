@@ -1,5 +1,6 @@
 package com.ezreb.game;
 
+import java.awt.Canvas;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Rectangle;
@@ -7,12 +8,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.InputMethodListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
@@ -24,7 +29,7 @@ import com.ezreb.graphics.images.ImageLoader;
 import com.ezreb.graphics.menu.MenuOption;
 import com.ezreb.graphics.menu.MenuScreen;
 
-public class Singleplayer extends JPanel {
+public class Singleplayer extends JLayeredPane {
 	/**
 	 * 
 	 */
@@ -72,11 +77,71 @@ public class Singleplayer extends JPanel {
 //				Singleplayer.this.grabFocus();
 			}
 		});
-		
 		hud = new HUD();
 		hud.setFocusable(false);
 		hud.getHealthbar().setFocusable(false);
 		hud.setBounds(0, 0, 1366, 768);
+		this.setPosition(hud, 0);
+
+		this.de = new DisplayEffects();
+		de.c.setVisible(false);
+		this.de.getCanvas().setFocusable(false);
+		this.de.getCanvas().addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				Singleplayer.this.processKeyEvent(e);
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				Singleplayer.this.processKeyEvent(e);
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				Singleplayer.this.processKeyEvent(e);
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		this.de.getCanvas().addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				Singleplayer.this.processMouseEvent(e);
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Singleplayer.this.processMouseEvent(e);
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Singleplayer.this.processMouseEvent(e);
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Singleplayer.this.processMouseEvent(e);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				Singleplayer.this.processMouseEvent(e);
+			}
+		});
+		this.add(de.getCanvas());
+		this.setPosition(de.getCanvas(), 10);
 		
 		menuScreen = new MenuScreen();
 		menuScreen.setBounds(1165, 0, 201, 101);
@@ -292,18 +357,32 @@ public class Singleplayer extends JPanel {
 
 	}
 	JTextArea lblNewLabel;
+	DisplayEffects de;
 
+	@Override
+	public boolean isOptimizedDrawingEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	public HUD getHud() {
 		return hud;
 	}
 	public void start() {
 		this.setVisible(true);
+		de.getCanvas().setVisible(true);
 		this.hud.setVisible(true);
 		this.hud.start();
 		requestFocus();
 		requestFocusInWindow();
-		DisplayEffects de = new DisplayEffects();
-		this.add(de.getCanvas());
+		//de.c.setVisible(true);
+	}
+	@Override
+	public void setVisible(boolean aFlag) {
+		// TODO Auto-generated method stub
+		if(aFlag == false) {
+			this.de.getCanvas().setVisible(false);
+		}
+		super.setVisible(aFlag);
 	}
 	public MenuScreen getMenuScreen() {
 		return menuScreen;

@@ -31,7 +31,7 @@ public class OptionsMenu extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	@SuppressWarnings({ "serial" })
+	@SuppressWarnings({ "serial", "rawtypes", "unchecked" })
 	public OptionsMenu() {
 		setBounds(new Rectangle(0, 0, 1366, 768));
 		setLayout(null);

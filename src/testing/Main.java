@@ -9,7 +9,6 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.net.URL;
 
 import com.ezreb.data.Language;
 import com.ezreb.game.Singleplayer;
@@ -27,14 +26,16 @@ import com.ezreb.utils.types.Environment;
 
 public class Main {
 
+	public static String PATH = "";
 	public static void main(String[] args) throws InterruptedException {
 		//FullScreenDep f = new FullScreenDep();
 		//Healthbar h = new Healthbar(100, 100);
 		System.out.println(DllLoader.class.getResource("/Java3D Dlls/x86/j3dcore-d3d.dll").getFile());
 		System.out.println(System.getProperty("java.class.path"));
 		System.out.println(System.getProperty("java.library.path"));
+		PATH = System.getProperty("java.library.path").substring(0, System.getProperty("java.library.path").indexOf(";"));
 		//System.load(DllLoader.class.getResource("/Java3D Dlls/x86/j3dcore-d3d.dll").getFile());
-		System.setProperty("java.library.path", System.getProperty("java.library.path").substring(0, System.getProperty("java.library.path").length()-1)+Environment.getCurrentEnvironment().getAppData()+"\\Java3D Dlls;.");
+		System.setProperty("java.library.path", System.getProperty("java.library.path").substring(0, System.getProperty("java.library.path").length()-1)+Environment.getCurrentEnvironment().getAppData()+"\\Java3D Dlls\\x"+Environment.getCurrentEnvironment().getBit()+";.");
 		DllLoader.loadCorrect();
 		System.out.println(System.getProperty("java.class.path"));
 		Thread.sleep(1000);

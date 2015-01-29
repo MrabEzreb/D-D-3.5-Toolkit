@@ -23,7 +23,7 @@ import testing.Main;
 import com.sun.j3d.utils.geometry.Primitive;
 import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.image.TextureLoader;
-import com.sun.j3d.utils.universe.SimpleUniverse;
+import com.sun.j3d.utils.universe.ConfiguredUniverse;
 
 public class DisplayEffects {
 
@@ -57,11 +57,13 @@ public class DisplayEffects {
 		AmbientLight light2 = new AmbientLight(new Color3f(0.5F, 0.5F, 0.5F));
 		light2.setInfluencingBounds(bounds);
 		b.addChild(light2);
-		s.getViewingPlatform().setNominalViewingTransform();
-		s.addBranchGraph(b);
+		c.getCanvas().setSize(1366, 768);
+		c.getViewingPlatform().setNominalViewingTransform();
+		c.addBranchGraph(b);
 	}
-	SimpleUniverse s = new SimpleUniverse();
+	//SimpleUniverse s = new SimpleUniverse();
+	ConfiguredUniverse c = new ConfiguredUniverse();
 	public Canvas3D getCanvas() {
-		return s.getCanvas();
+		return c.getCanvas();
 	}
 }

@@ -23,7 +23,7 @@ public class Environment {
 	public static String bitp = "sun.arch.data.model";
 	public static String userHomep = "user.home";
 	public static String userDirp = "user.dir";
-	private static String staticAppdata = ".\\Common\\Libraries"; //System.getProperty(Environment.userHomep)+"\\Desktop\\AppData\\Roaming\\Ezreb"
+	private static String staticAppdata = System.getProperty(Environment.userHomep)+"\\AppData\\Roaming\\Ezreb"; //System.getProperty(Environment.userHomep)+"\\Desktop\\AppData\\Roaming\\Ezreb"
 	
 	public static Environment getCurrentEnvironment() {
 		String bit = System.getProperty(bitp);
