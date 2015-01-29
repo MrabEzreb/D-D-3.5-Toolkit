@@ -303,7 +303,7 @@ public class Singleplayer extends JPanel {
 		requestFocus();
 		requestFocusInWindow();
 		DisplayEffects de = new DisplayEffects();
-		this.add(de.s.getCanvas());
+		this.add(de.getCanvas());
 	}
 	public MenuScreen getMenuScreen() {
 		return menuScreen;

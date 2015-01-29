@@ -36,15 +36,15 @@ public class DllLoader {
 		try {
 			new File(e.getAppData()).mkdirs();
 			System.out.println("1");
-			InputStream in = dll.openStream();
+			InputStream in =  DllLoader.class.getResourceAsStream(dllLoc+"/"+name);
 			System.out.println("1");
 			OutputStream out = new FileOutputStream(new File(e.getAppData()+"\\"+name));
 			System.out.println("1");
-			byte[] b = new byte[1024];
+			byte[] b = new byte[1];
 			while(in.available() > 0) {
 				in.read(b);
 				out.write(b);
-				b = new byte[1024];
+				b = new byte[1];
 			}
 			in.close();
 			out.close();

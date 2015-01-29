@@ -8,6 +8,7 @@ import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
 import javax.media.j3d.BoundingSphere;
 import javax.media.j3d.BranchGroup;
+import javax.media.j3d.Canvas3D;
 import javax.media.j3d.DirectionalLight;
 import javax.media.j3d.Material;
 import javax.media.j3d.Texture;
@@ -30,7 +31,7 @@ public class DisplayEffects {
 		BranchGroup b = new BranchGroup();
 		Color3f black = new Color3f(Color.BLACK);
 		Color3f red = new Color3f(Color.RED);
-		String localPath = Main.class.getClassLoader().getResource("com/ezreb/testing/planks_acacia.png").getPath();
+		String localPath = Main.class.getClassLoader().getResource("com/ezreb/game/planks_acacia.png").getPath();
 		System.out.println(localPath);
 		System.out.println(new File(localPath).exists());
 		TextureLoader loader = new TextureLoader(localPath, "RGB", new Container());
@@ -60,4 +61,7 @@ public class DisplayEffects {
 		s.addBranchGraph(b);
 	}
 	SimpleUniverse s = new SimpleUniverse();
+	public Canvas3D getCanvas() {
+		return s.getCanvas();
+	}
 }
