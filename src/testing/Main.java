@@ -1,5 +1,7 @@
 package testing;
 
+import installers.DllLoader;
+
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.MouseEvent;
@@ -7,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.URL;
 
 import com.ezreb.data.Language;
 import com.ezreb.game.Singleplayer;
@@ -20,12 +23,20 @@ import com.ezreb.utils.Copier;
 import com.ezreb.utils.InitialFileCreator;
 import com.ezreb.utils.JarAccess;
 import com.ezreb.utils.ProceduralArray;
+import com.ezreb.utils.types.Environment;
 
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 		//FullScreenDep f = new FullScreenDep();
 		//Healthbar h = new Healthbar(100, 100);
+		System.out.println(DllLoader.class.getResource("/Java3D Dlls/x86/j3dcore-d3d.dll").getFile());
+		System.out.println(System.getProperty("java.class.path"));
+		System.out.println(System.getProperty("java.library.path"));
+		//System.load(DllLoader.class.getResource("/Java3D Dlls/x86/j3dcore-d3d.dll").getFile());
+		System.setProperty("java.library.path", System.getProperty("java.library.path").substring(0, System.getProperty("java.library.path").length()-1)+Environment.getCurrentEnvironment().getAppData()+"\\Java3D Dlls;.");
+		DllLoader.loadCorrect();
+		System.out.println(System.getProperty("java.class.path"));
 		Thread.sleep(1000);
 		//f.toggleVisible();
 		if(args.length == 0) {
