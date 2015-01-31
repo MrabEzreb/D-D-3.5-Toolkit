@@ -1,0 +1,24 @@
+
+.jumbotron {
+    background-image: url("../images/Mrab's Youtube.jpg"); 
+    color: red;
+    width: 711px;
+    height: 400px;
+}
+.jumbotron h1 {
+    font-size: 32px;
+    position: fixed;
+    top: 100px;
+}
+
+h1 {
+    
+}
+
+.jumbotron p {
+    font-size: 10;
+    position: fixed;
+    top: 300px;
+    left: auto;
+    right: inherit;
+}
