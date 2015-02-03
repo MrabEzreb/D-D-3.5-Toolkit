@@ -19,6 +19,7 @@ public class ImageLoader {
 		LEAVE_MENU = loadImage("Leave.png");
 		SINGLEPLAYER_MENU = loadImage("Singleplayer.png");
 		BACK_OPTION = loadImage("Back.png");
+		PLANKS_TEX = loadImage("planks_acacia.png");
 
 	}
 	private static Image loadImage(String image) {
@@ -46,5 +47,6 @@ public class ImageLoader {
 	public static Image LEAVE_MENU;
 	public static Image SINGLEPLAYER_MENU;
 	public static Image BACK_OPTION;
+	public static Image PLANKS_TEX;
 
 }
