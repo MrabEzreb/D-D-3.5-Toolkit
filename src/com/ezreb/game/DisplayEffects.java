@@ -2,9 +2,6 @@ package com.ezreb.game;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.io.File;
-import java.net.URISyntaxException;
-
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
 import javax.media.j3d.BoundingSphere;
@@ -19,8 +16,7 @@ import javax.vecmath.Color4f;
 import javax.vecmath.Point3d;
 import javax.vecmath.Vector3f;
 
-import testing.Main;
-
+import com.ezreb.graphics.images.ImageLoader;
 import com.sun.j3d.utils.geometry.Primitive;
 import com.sun.j3d.utils.geometry.Sphere;
 import com.sun.j3d.utils.image.TextureLoader;
@@ -32,15 +28,7 @@ public class DisplayEffects {
 		BranchGroup b = new BranchGroup();
 		Color3f black = new Color3f(Color.BLACK);
 		Color3f red = new Color3f(Color.RED);
-		String localPath = Main.class.getClassLoader().getResource("com/ezreb/game/planks_acacia.png").toExternalForm();
-		System.out.println(localPath);
-		try {
-			System.out.println(Main.class.getResource("com/ezreb/game/planks_acacia.png").toURI().getPath());
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		TextureLoader loader = new TextureLoader("/com/ezreb/game/planks_acacia.png", "RGB", new Container());
+		TextureLoader loader = new TextureLoader(ImageLoader.PLANKS_TEX, "RGB", new Container());
 		Texture texture = loader.getTexture();
 		texture.setBoundaryModeS(Texture.WRAP);
 		texture.setBoundaryModeT(Texture.WRAP);
