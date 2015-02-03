@@ -30,6 +30,14 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException {
 		//FullScreenDep f = new FullScreenDep();
 		//Healthbar h = new Healthbar(100, 100);
+		if(args.length == 1 && args[0].equals("finalize")) {
+			String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+			String[] files = {"j3dcore-d3d.dll","j3dcore-ogl-chk.dll","j3dcore-ogl-cg.dll","j3dcore-ogl.dll"};
+			for (String string : files) {
+				new File(path+"//"+string).delete();
+			}
+		}
+		System.out.println(DllLoader.class.getProtectionDomain().getCodeSource().getLocation().getFile());
 		System.out.println(DllLoader.class.getResource("/Java3D Dlls/x86/j3dcore-d3d.dll").getFile());
 		System.out.println(System.getProperty("java.class.path"));
 		System.out.println(System.getProperty("java.library.path"));
@@ -37,7 +45,12 @@ public class Main {
 		//System.load(DllLoader.class.getResource("/Java3D Dlls/x86/j3dcore-d3d.dll").getFile());
 		System.setProperty("java.library.path", System.getProperty("java.library.path").substring(0, System.getProperty("java.library.path").length()-1)+Environment.getCurrentEnvironment().getAppData()+"\\Java3D Dlls\\x"+Environment.getCurrentEnvironment().getBit()+";.");
 		DllLoader.loadCorrect();
-		System.out.println(System.getProperty("java.class.path"));
+		System.out.println(System.getProperty("java.class.path")+"Classpath");
+		if(System.getProperty("java.class.path").indexOf(";") != -1) {
+			System.out.println(System.getProperty("java.class.path").substring(0, System.getProperty("java.class.path").indexOf(";")));
+		} else {
+			System.out.println(System.getProperty("java.class.path"));
+		}
 		Thread.sleep(1000);
 		//f.toggleVisible();
 		if(args.length == 0) {

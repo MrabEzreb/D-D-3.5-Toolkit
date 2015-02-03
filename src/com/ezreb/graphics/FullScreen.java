@@ -54,7 +54,7 @@ public class FullScreen extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				//GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(FullScreenTest.this);
+				// GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(FullScreenTest.this);
 			}
 		});
 		setVisible(false);
@@ -63,14 +63,15 @@ public class FullScreen extends JFrame {
 		setSize(new Dimension(width, height));
 		setBounds(0, 0, width, height);
 		getContentPane().setLayout(null);
-		
+
 		MainMenu = new MenuScreen();
 		MainMenu.setIgnoreRepaint(false);
 		MainMenu.setOpaque(false);
 		MainMenu.setBounds(100, 100, 201, 404);
 		getContentPane().add(MainMenu);
-		
-		MenuOption SingleplayerOption = new MenuOption(200, 100, ImageLoader.SINGLEPLAYER_MENU);
+
+		MenuOption SingleplayerOption = new MenuOption(200, 100,
+				ImageLoader.SINGLEPLAYER_MENU);
 		SingleplayerOption.getCanvas().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -80,8 +81,9 @@ public class FullScreen extends JFrame {
 		});
 		SingleplayerOption.setBounds(0, 0, 200, 100);
 		MainMenu.add(SingleplayerOption);
-		
-		MenuOption JSONGenOption = new MenuOption(200, 100, ImageLoader.JSON_GENERATOR_MENU);
+
+		MenuOption JSONGenOption = new MenuOption(200, 100,
+				ImageLoader.JSON_GENERATOR_MENU);
 		JSONGenOption.getCanvas().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -109,7 +111,7 @@ public class FullScreen extends JFrame {
 		});
 		JSONGenOption.setBounds(0, 101, 200, 100);
 		MainMenu.add(JSONGenOption);
-		
+
 		MenuOption ExitOption = new MenuOption(200, 100, ImageLoader.LEAVE_MENU);
 		ExitOption.getCanvas().addMouseListener(new MouseAdapter() {
 			@Override
@@ -121,40 +123,45 @@ public class FullScreen extends JFrame {
 		});
 		ExitOption.setBounds(0, 303, 200, 100);
 		MainMenu.add(ExitOption);
-		
-		MenuOption menuOption = new MenuOption(200, 100, ImageLoader.BACK_OPTION);
+
+		MenuOption menuOption = new MenuOption(200, 100,
+				ImageLoader.BACK_OPTION);
 		menuOption.getCanvas().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				//System.out.println("go");
+				// System.out.println("go");
 				FullScreen.this.getMainMenu().setVisible(false);
 				FullScreen.this.getOptionsMenu().setVisible(true);
-				//System.out.println("go");
+				// System.out.println("go");
 			}
 		});
 		menuOption.setBounds(0, 202, 200, 100);
 		MainMenu.add(menuOption);
-		
+
 		singleplayer = new Singleplayer();
 		singleplayer.setVisible(false);
 		singleplayer.setBounds(0, 0, 1366, 768);
 		getContentPane().add(singleplayer);
-		
+
 		optionsMenu = new OptionsMenu();
 		optionsMenu.setBounds(0, 0, 1366, 768);
 		optionsMenu.setVisible(false);
 		getContentPane().add(optionsMenu);
 	}
+
 	public MenuScreen getMainMenu() {
 		return MainMenu;
 	}
+
 	public void start() {
 		this.setVisible(true);
 		this.MainMenu.start();
 	}
+
 	public Singleplayer getSingleplayer() {
 		return singleplayer;
 	}
+
 	public OptionsMenu getOptionsMenu() {
 		return optionsMenu;
 	}

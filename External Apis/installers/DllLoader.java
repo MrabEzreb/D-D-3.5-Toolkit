@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
-import java.nio.file.Files;
 
 import com.ezreb.utils.types.Environment;
 
@@ -59,12 +58,8 @@ public class DllLoader {
 				
 				@Override
 				public void run() {
-					try {
-						Files.delete(new File(new File(dllLoc2+name).getAbsolutePath()).toPath());
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						System.out.println(e.toString());
-					}
+					new File(new File(dllLoc2+name).getAbsolutePath()).delete();
+					
 					System.out.println("Deleted "+name);
 				}
 			}));

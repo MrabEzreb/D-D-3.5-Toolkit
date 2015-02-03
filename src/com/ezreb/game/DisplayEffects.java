@@ -3,6 +3,7 @@ package com.ezreb.game;
 import java.awt.Color;
 import java.awt.Container;
 import java.io.File;
+import java.net.URISyntaxException;
 
 import javax.media.j3d.AmbientLight;
 import javax.media.j3d.Appearance;
@@ -31,10 +32,15 @@ public class DisplayEffects {
 		BranchGroup b = new BranchGroup();
 		Color3f black = new Color3f(Color.BLACK);
 		Color3f red = new Color3f(Color.RED);
-		String localPath = Main.class.getClassLoader().getResource("com/ezreb/game/planks_acacia.png").getPath();
+		String localPath = Main.class.getClassLoader().getResource("com/ezreb/game/planks_acacia.png").toExternalForm();
 		System.out.println(localPath);
-		System.out.println(new File(localPath).exists());
-		TextureLoader loader = new TextureLoader(localPath, "RGB", new Container());
+		try {
+			System.out.println(Main.class.getResource("com/ezreb/game/planks_acacia.png").toURI().getPath());
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TextureLoader loader = new TextureLoader("/com/ezreb/game/planks_acacia.png", "RGB", new Container());
 		Texture texture = loader.getTexture();
 		texture.setBoundaryModeS(Texture.WRAP);
 		texture.setBoundaryModeT(Texture.WRAP);
