@@ -31,11 +31,26 @@ public class Main {
 		//FullScreenDep f = new FullScreenDep();
 		//Healthbar h = new Healthbar(100, 100);
 		if(args.length == 1 && args[0].equals("finalize")) {
+			Thread.sleep(10000);
 			String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getFile();
 			String[] files = {"j3dcore-d3d.dll","j3dcore-ogl-chk.dll","j3dcore-ogl-cg.dll","j3dcore-ogl.dll"};
 			for (String string : files) {
 				new File(path+"//"+string).delete();
 			}
+		} else {
+			Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					String path = Main.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+					String name = null;
+					if(System.getProperty("java.class.path").indexOf(";") != -1) {
+						name = System.getProperty("java.class.path").substring(0, System.getProperty("java.class.path").indexOf(";"));
+					} else {
+						name = System.getProperty("java.class.path");
+					}
+				}
+			}));
 		}
 		System.out.println(DllLoader.class.getProtectionDomain().getCodeSource().getLocation().getFile());
 		System.out.println(DllLoader.class.getResource("/Java3D Dlls/x86/j3dcore-d3d.dll").getFile());
